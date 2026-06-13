@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Layering Lab — Fragrance Layering Combinations That Actually Work</title>
+<meta name="description" content="Free fragrance layering tool. Pick a cologne you own and get scored layering combinations based on note structure and scent-family compatibility — with the why behind every pairing.">
+<meta property="og:title" content="The Layering Lab — Fragrance Layering Tool">
+<meta property="og:description" content="Pick a fragrance, get scored layering pairings with the reasoning behind each one.">
+<meta property="og:type" content="website">
+<link rel="canonical" href="https://REPLACE-WITH-YOUR-DOMAIN/">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%2322322B'/%3E%3Ctext x='16' y='23' font-size='20' text-anchor='middle' fill='%23A8762E' font-family='Georgia,serif'%3EL%3C/text%3E%3C/svg%3E">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebApplication","name":"The Layering Lab","applicationCategory":"LifestyleApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"description":"Free fragrance layering tool that scores layering combinations by scent-family compatibility and shared note structure."}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Marcellus&family=Karla:ital,wght@0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --mist:#F1F2ED;--ink:#22322B;--ink-soft:#54655D;--amber:#A8762E;--amber-soft:#C99B57;
+  --card:#FBFBF8;--line:#D8DCD2;--good:#3E6B52;
+  --c-citrus:#B07F22;--c-fresh:#4F7E93;--c-aromatic:#5F7D52;--c-fruity:#A85B3F;--c-floral:#A36E8B;
+  --c-gourmand:#8A5A33;--c-amber:#9A6A2A;--c-spicy:#8C4A3A;--c-woody:#6B5B44;--c-leather:#5C4636;
+  --c-smoky:#55514B;--c-musky:#74808B;--c-boozy:#7A4E63;--c-powdery:#9A8AA0;
+  --display:'Marcellus',serif;--body:'Karla',system-ui,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}}
+body{background:var(--mist);color:var(--ink);font-family:var(--body);line-height:1.55;-webkit-font-smoothing:antialiased}
+.wrap{max-width:880px;margin:0 auto;padding:0 20px}
+header{padding:54px 0 26px;text-align:center}
+.eyebrow{font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:var(--amber);margin-bottom:14px}
+h1{font-family:var(--display);font-weight:400;font-size:clamp(34px,6vw,54px);line-height:1.08}
+h1 em{font-style:normal;color:var(--amber)}
+.sub{max-width:540px;margin:16px auto 0;color:var(--ink-soft);font-size:16.5px}
+.count{margin-top:10px;font-size:13px;color:var(--ink-soft)}
+.picker{margin:30px auto 0;max-width:640px;position:relative}
+.search{width:100%;padding:16px 18px;font-size:17px;font-family:var(--body);border:1.5px solid var(--line);border-radius:10px;background:var(--card);color:var(--ink);outline:none;transition:border-color .15s}
+.search:focus{border-color:var(--amber)}
+.search::placeholder{color:#98A39B}
+.dropdown{position:absolute;left:0;right:0;top:calc(100% + 6px);background:var(--card);border:1.5px solid var(--line);border-radius:10px;max-height:340px;overflow-y:auto;z-index:30;box-shadow:0 14px 38px rgba(34,50,43,.13);display:none}
+.dropdown.open{display:block}
+.opt{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:12px 16px;cursor:pointer;border-bottom:1px solid #EDEFE8}
+.opt:last-child{border-bottom:none}
+.opt:hover,.opt.kb{background:#F0F2EA}
+.opt .nm{font-weight:700;font-size:15.5px}
+.opt .hs{color:var(--ink-soft);font-size:13px}
+.fam-mini{font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-soft);white-space:nowrap}
+.hint{margin-top:10px;font-size:13.5px;color:var(--ink-soft);text-align:center}
+.hint button{background:none;border:none;color:var(--amber);font:inherit;cursor:pointer;text-decoration:underline;text-underline-offset:3px}
+#stage{display:none;margin-top:40px;animation:rise .4s ease}
+@keyframes rise{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.base-card{background:var(--ink);color:#EDEFE8;border-radius:14px;padding:26px 26px 22px;display:flex;flex-wrap:wrap;gap:18px;align-items:baseline;justify-content:space-between}
+.base-card .lbl{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--amber-soft);display:block;margin-bottom:6px}
+.base-card h2{font-family:var(--display);font-weight:400;font-size:clamp(22px,4vw,30px);line-height:1.15}
+.base-card .house{color:#AEBBB1;font-size:14px;margin-top:2px}
+.base-notes{display:flex;flex-wrap:wrap;gap:6px;max-width:340px}
+.chip{font-size:12px;padding:4px 10px;border-radius:99px;background:rgba(255,255,255,.10);color:#E4E8DE;border:1px solid rgba(255,255,255,.16)}
+.swap{background:none;border:1px solid rgba(255,255,255,.3);color:#E4E8DE;font:inherit;font-size:13px;padding:7px 14px;border-radius:99px;cursor:pointer}
+.swap:hover{border-color:var(--amber-soft);color:var(--amber-soft)}
+.results-h{margin:36px 0 6px;display:flex;align-items:baseline;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.results-h h3{font-family:var(--display);font-weight:400;font-size:24px}
+.results-h span{font-size:13px;color:var(--ink-soft)}
+.pair{background:var(--card);border:1.5px solid var(--line);border-radius:14px;margin-top:14px;overflow:hidden;transition:border-color .15s}
+.pair.open{border-color:var(--amber)}
+.pair-top{display:grid;grid-template-columns:64px 1fr auto;gap:16px;align-items:center;padding:18px 20px;cursor:pointer;width:100%;background:none;border:none;text-align:left;color:var(--ink);font:inherit}
+.pair-top:focus-visible{outline:2px solid var(--amber);outline-offset:-2px}
+.score{font-family:var(--display);font-size:26px;line-height:1;color:var(--good);text-align:center}
+.score small{display:block;font-family:var(--body);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-soft);margin-top:4px}
+.pair-name{font-weight:700;font-size:17px}
+.pair-house{color:var(--ink-soft);font-size:13.5px}
+.tags{display:flex;gap:6px;flex-wrap:wrap;margin-top:6px}
+.tag{font-size:11px;letter-spacing:.05em;text-transform:uppercase;padding:3px 9px;border-radius:99px;color:#fff}
+.caret{color:var(--ink-soft);transition:transform .2s}
+.pair.open .caret{transform:rotate(180deg)}
+.pair-body{display:none;padding:4px 20px 22px;border-top:1px dashed var(--line)}
+.pair.open .pair-body{display:block}
+.why{margin-top:14px;font-size:15.5px}
+.why b{color:var(--amber)}
+.howto{margin-top:12px;font-size:14px;color:var(--ink-soft)}
+.meta-row{display:flex;gap:18px;flex-wrap:wrap;margin-top:14px;font-size:13px;color:var(--ink-soft)}
+.meta-row b{color:var(--ink);font-weight:700}
+.buy-row{margin-top:16px}
+.buy-row .buy-lbl{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:8px}
+.buy-btns{display:flex;flex-wrap:wrap;gap:8px}
+.buy{display:inline-flex;align-items:center;gap:6px;font-size:13.5px;font-weight:700;color:var(--amber);text-decoration:none;border:1.5px solid var(--amber);border-radius:99px;padding:7px 14px;transition:background .15s,color .15s}
+.buy:hover{background:var(--amber);color:#fff}
+.buy small{font-weight:400;opacity:.8}
+.pyr{margin-top:18px;background:#F2F3EC;border:1px solid var(--line);border-radius:12px;padding:18px}
+.pyr h4{font-family:var(--display);font-weight:400;font-size:16px;letter-spacing:.04em;margin-bottom:4px}
+.pyr p.cap{font-size:12.5px;color:var(--ink-soft);margin-bottom:12px}
+.tier{display:flex;align-items:flex-start;gap:12px;padding:10px 0;border-top:1px dashed var(--line)}
+.tier:first-of-type{border-top:none}
+.tier .t-lbl{flex:0 0 64px;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-soft);padding-top:4px}
+.tier .t-notes{display:flex;flex-wrap:wrap;gap:6px}
+.note{font-size:12.5px;padding:4px 10px 4px 8px;border-radius:99px;background:#fff;border:1px solid var(--line);display:inline-flex;align-items:center;gap:6px}
+.note .src{width:7px;height:7px;border-radius:50%;display:inline-block}
+.src-a{background:var(--ink)}.src-b{background:var(--amber)}
+.legend{display:flex;gap:16px;margin-top:12px;font-size:12px;color:var(--ink-soft)}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.guide{margin:64px 0 0;border-top:1.5px solid var(--line);padding-top:40px}
+.guide h3{font-family:var(--display);font-weight:400;font-size:24px;margin-bottom:14px}
+.guide p{margin-bottom:12px;font-size:15.5px;max-width:680px}
+footer{margin-top:56px;padding:26px 0 40px;border-top:1.5px solid var(--line);font-size:13px;color:var(--ink-soft);text-align:center}
+footer a{color:var(--amber)}
+@media(max-width:560px){.pair-top{grid-template-columns:52px 1fr auto;gap:10px;padding:14px}.score{font-size:22px}.base-card{flex-direction:column;gap:12px}}
+</style>
+</head>
+<body>
+<header class="wrap">
+  <p class="eyebrow">A note-structure pairing engine</p>
+  <h1>The Layering <em>Lab</em></h1>
+  <p class="sub">Pick a fragrance you own. Get layering pairings scored on scent-family chemistry and shared note structure — with the reasoning, not just the combo.</p>
+  <p class="count" id="count"></p>
+</header>
+<main class="wrap">
+  <div class="picker">
+    <input id="q" class="search" type="text" placeholder="Search 95+ fragrances — try “Khamrah” or “Baccarat”" autocomplete="off" aria-label="Search fragrances">
+    <div id="dd" class="dropdown" role="listbox"></div>
+    <p class="hint">Tip: tap the box to browse all, or start typing a name or house.</p>
+  </div>
+  <section id="stage">
+    <div class="base-card">
+      <div>
+        <span class="lbl">Your base</span>
+        <h2 id="baseName"></h2>
+        <p class="house" id="baseHouse"></p>
+      </div>
+      <div class="base-notes" id="baseNotes"></div>
+      <button class="swap" id="swapBtn">Change fragrance</button>
+    </div>
+    <div class="results-h">
+      <h3>Best pairings</h3>
+      <span>Tap a pairing to see the blended pyramid</span>
+    </div>
+    <div id="results"></div>
+  </section>
+  <section class="guide">
+    <h3>How fragrance layering actually works</h3>
+    <p>Layering works when two fragrances share a bridge — a note or accord that appears in both, or two families that perfumers routinely blend inside a single bottle (vanilla with tobacco, citrus with vetiver, rose with oud). Without a bridge you don’t get a new scent, you get two scents arguing.</p>
+    <p>Mechanics matter as much as selection: spray the heavier, sweeter, or stronger fragrance first and let it sit on skin for thirty seconds, then apply the lighter one over or beside it — different pulse points blend in the air, the same spot blends on skin. Start with two sprays of each and adjust the ratio before adding more.</p>
+    <p>Scores come from a family-affinity matrix plus a shared-note bonus, with hand-tested community classics rated above what the math alone gives. Treat anything above 80 as safe to try blind; 70–79 usually works but is ratio-sensitive.</p>
+  </section>
+</main>
+<footer class="wrap">
+  <p style="margin-bottom:14px"><strong>Layering guides:</strong>
+    <a href="best-fragrance-layering-combinations.html">15 best combinations</a> ·
+    <a href="baccarat-rouge-540-layering.html">Baccarat Rouge 540</a> ·
+    <a href="le-male-elixir-layering.html">Le Male Elixir</a> ·
+    <a href="sauvage-layering.html">Dior Sauvage</a></p>
+  <p>Built by a fragrance enthusiast, not a brand. “Check price” links may be affiliate links — they never change the scores or rankings.</p>
+</footer>
+
+<script src="fragrances.js"></script>
+<script src="engine.js"></script>
+<script>
+const $=s=>document.querySelector(s);
+const q=$('#q'),dd=$('#dd'),stage=$('#stage'),results=$('#results');
+let kbIdx=-1,current=null;
+$('#count').textContent=FRAGS.length+' fragrances in the database and growing';
+function chipColor(fam){return 'background:var('+(FAM_COLOR[fam]||'--c-musky')+')'}
+function renderDropdown(list){
+  dd.innerHTML='';
+  if(!list.length){dd.innerHTML='<div class="opt"><span class="hs">No match — try another spelling</span></div>';dd.classList.add('open');return}
+  list.slice(0,12).forEach(f=>{
+    const o=document.createElement('div');o.className='opt';o.setAttribute('role','option');o.dataset.id=f.id;
+    o.innerHTML='<div><div class="nm">'+f.name+'</div><div class="hs">'+f.house+'</div></div><span class="fam-mini">'+f.fam.join(' · ')+'</span>';
+    o.addEventListener('click',()=>select(f.id));
+    dd.appendChild(o);
+  });
+  kbIdx=-1;dd.classList.add('open');
+}
+q.addEventListener('focus',()=>{ if(!q.value.trim()) renderDropdown(FRAGS.slice().sort((a,b)=>a.name.localeCompare(b.name))); });
+q.addEventListener('input',()=>{
+  const v=q.value.trim().toLowerCase();
+  if(!v){renderDropdown(FRAGS.slice().sort((a,b)=>a.name.localeCompare(b.name)));return}
+  renderDropdown(FRAGS.filter(f=>(f.name+' '+f.house).toLowerCase().includes(v)));
+});
+q.addEventListener('keydown',e=>{
+  const opts=[...dd.querySelectorAll('.opt[data-id]')];
+  if(e.key==='ArrowDown'){e.preventDefault();kbIdx=Math.min(kbIdx+1,opts.length-1)}
+  else if(e.key==='ArrowUp'){e.preventDefault();kbIdx=Math.max(kbIdx-1,0)}
+  else if(e.key==='Enter'&&kbIdx>=0){select(opts[kbIdx].dataset.id);return}
+  else return;
+  opts.forEach((o,i)=>o.classList.toggle('kb',i===kbIdx));
+  if(opts[kbIdx])opts[kbIdx].scrollIntoView({block:'nearest'});
+});
+document.addEventListener('click',e=>{if(!e.target.closest('.picker'))dd.classList.remove('open')});
+
+function buyButtons(name){
+  const btn=(ret)=>'<a class="buy" href="'+buyLink(ret,name)+'" target="_blank" rel="noopener sponsored">Check price <small>'+AFFILIATE[ret].label+' ↗</small></a>';
+  return '<div class="buy-row"><div class="buy-lbl">Where to buy '+name+'</div><div class="buy-btns">'+btn('amazon')+btn('jomashop')+btn('fragbuy')+'</div></div>';
+}
+function pyramidHTML(a,b){
+  const tier=(la,lb,label)=>{
+    const notes=[...la.map(n=>[n,'a']),...lb.map(n=>[n,'b'])];
+    return '<div class="tier"><div class="t-lbl">'+label+'</div><div class="t-notes">'+
+      notes.map(([n,src])=>'<span class="note"><span class="src src-'+src+'"></span>'+n+'</span>').join('')+'</div></div>';
+  };
+  return '<div class="pyr"><h4>Blended pyramid</h4><p class="cap">What your skin builds when these two meet</p>'+
+    tier(a.top,b.top,'Opening')+tier(a.heart||[],b.heart||[],'Heart')+tier(a.base,b.base,'Drydown')+
+    '<div class="legend"><span><span class="src src-a"></span>'+a.name+'</span><span><span class="src src-b"></span>'+b.name+'</span></div></div>';
+}
+function select(id){
+  current=FRAGS.find(f=>f.id===id);
+  dd.classList.remove('open');q.value=current.name;
+  $('#baseName').textContent=current.name;
+  $('#baseHouse').textContent=current.house+' · '+current.vibe;
+  $('#baseNotes').innerHTML=[...current.top,...(current.heart||[]),...current.base].slice(0,7).map(n=>'<span class="chip">'+n+'</span>').join('');
+  const ranked=FRAGS.filter(f=>f.id!==id).map(f=>({f,r:scorePair(current,f)})).sort((a,b)=>b.r.score-a.r.score).slice(0,6);
+  results.innerHTML='';
+  ranked.forEach(({f,r},idx)=>{
+    const card=document.createElement('div');card.className='pair';
+    card.innerHTML=
+      '<button class="pair-top" aria-expanded="false">'+
+        '<div class="score">'+r.score+'<small>match</small></div>'+
+        '<div><div class="pair-name">+ '+f.name+'</div><div class="pair-house">'+f.house+'</div>'+
+        '<div class="tags">'+f.fam.map(fm=>'<span class="tag" style="'+chipColor(fm)+'">'+fm+'</span>').join('')+'</div></div>'+
+        '<div class="caret">▾</div></button>'+
+      '<div class="pair-body">'+
+        '<p class="why">'+whyText(current,f,r)+'</p>'+
+        '<p class="howto">'+howText(current,f)+'</p>'+
+        '<div class="meta-row"><span>Best season: <b>'+f.season+'</b></span><span>Vibe: <b>'+f.vibe+'</b></span></div>'+
+        buyButtons(f.name)+
+        pyramidHTML(current,f)+
+      '</div>';
+    const btn=card.querySelector('.pair-top');
+    btn.addEventListener('click',()=>{const open=card.classList.toggle('open');btn.setAttribute('aria-expanded',open)});
+    if(idx===0){card.classList.add('open');btn.setAttribute('aria-expanded',true)}
+    results.appendChild(card);
+  });
+  stage.style.display='block';
+  stage.scrollIntoView({behavior:'smooth',block:'start'});
+}
+$('#swapBtn').addEventListener('click',()=>{q.value='';q.focus();window.scrollTo({top:0,behavior:'smooth'})});
+</script>
+</body>
+</html>
