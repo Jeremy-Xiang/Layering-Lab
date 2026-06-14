@@ -89,18 +89,59 @@ function noteFam(n){return NOTE_FAM[n]||'musky'}
 /* ---------- SCORING ---------- */
 function scorePair(a,b){
   const cur=curated(a.id,b.id);
+
+  /* --- family bridge analysis --- */
   let pairs=[];
   for(const fa of a.fam) for(const fb of b.fam) pairs.push(aff(fa,fb));
   pairs.sort((x,y)=>y-x);
-  const best=pairs.slice(0,2).reduce((t,v)=>t+v,0)/Math.min(2,pairs.length);
-  const worst=pairs[pairs.length-1];
-  let s=best*0.85 + worst*0.15;
-  if(worst<50) s-=(50-worst)*0.8;
+  const best=pairs[0];                                   // single strongest bridge
+  const second=pairs[1] ?? best;                         // backup bridge
+  const worst=pairs[pairs.length-1];                     // weakest interaction
+  const avg=pairs.reduce((t,v)=>t+v,0)/pairs.length;     // overall family fit
+
+  /* (A) widen the band: lead with the strongest bridge, reward a strong
+     SECOND bridge (two real connections beats one), and let the overall
+     average pull the score so generic-but-fine pairs sit lower than
+     genuinely well-matched ones. Coefficients sum to weight the top hard. */
+  let s = best*0.46 + second*0.20 + avg*0.24 + worst*0.10;
+
+  /* clash penalty: a hard incompatibility (marine vs heavy smoke) drags more */
+  if(worst<50) s-=(50-worst)*1.0;
+  /* small bonus only for a near-perfect primary bridge, so elite matches
+     edge upward without everything pinning to the cap */
+  if(best>=88) s+=(best-88)*0.5;
+
+  /* (B) shared-note granularity: notes shared in the SAME tier (both tops,
+     both bases) fuse far better than notes scattered across tiers. Weight
+     base-shared highest (drydown is what lingers), then heart, then top.
+     This breaks ties between pairs with identical family scores. */
+  const tierShared=(la,lb)=>la.filter(n=>lb.includes(n));
+  const topS  = tierShared(a.top,         b.top).length;
+  const heartS= tierShared(a.heart||[],   b.heart||[]).length;
+  const baseS = tierShared(a.base,        b.base).length;
   const aN=[...a.top,...(a.heart||[]),...a.base], bN=[...b.top,...(b.heart||[]),...b.base];
   const shared=aN.filter(n=>bN.includes(n));
-  s+=Math.min(shared.length*4,12);
-  s=Math.round(Math.max(20,Math.min(s,86)));
-  if(cur) s=cur.s;
+  const crossShared=Math.max(0, shared.length-(topS+heartS+baseS)); // shared but different tiers
+  s += Math.min(baseS*4 + heartS*3 + topS*2 + crossShared*1, 12);
+
+  /* (C) tie-breakers --------------------------------------------------- */
+  // season alignment: same season window blends more believably
+  if(a.season===b.season && a.season!=='Year-round') s+=2.5;
+  else if(a.season==='Year-round' || b.season==='Year-round') s+=1;
+  // gourmand/amber pairs are the most forgiving to layer in practice
+  const sweet=f=>f.fam.some(x=>['gourmand','amber','boozy'].includes(x));
+  if(sweet(a)&&sweet(b)) s+=2;
+  // two very loud heavy fragrances can overwhelm — slight nudge down
+  const heavyCount=f=>f.fam.filter(x=>['smoky','leather','boozy','amber','gourmand'].includes(x)).length;
+  if(heavyCount(a)>=2 && heavyCount(b)>=2) s-=2;
+
+  /* (A) final band: computed scores span ~55–88; curated classics (88–96)
+     sit clearly above. A tiny deterministic offset from the average family
+     fit breaks visual ties so a screen full of identical numbers can't happen
+     while keeping scores stable (same pair always = same score). */
+  s = s + (avg-70)*0.04;
+  s=Math.round(Math.max(40,Math.min(s,88)));
+  if(cur) s=cur.s;                                       // curated classics override (88–96)
   return {score:s,shared,cur};
 }
 function whyText(a,b,r){
