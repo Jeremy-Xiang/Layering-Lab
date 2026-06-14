@@ -91,8 +91,55 @@ truffle:'woody','black tea':'aromatic',plum:'fruity',dewberry:'fruity','red berr
 aldehydes:'powdery','coconut milk':'fruity',chestnut:'gourmand','sea salt':'fresh',driftwood:'woody',
 pomegranate:'fruity',yuzu:'citrus',mahogany:'woody',blackberry:'fruity',cassis:'fruity','bitter orange':'citrus',blueberry:'fruity',civet:'musky',
 cherry:'fruity','ginger lily':'floral',meringue:'gourmand','frozen rum accord':'boozy','watery notes':'fresh','aquatic notes':'fresh','atlas cedar':'woody','haitian vetiver':'woody',elemi:'woody','black currant':'fruity','coal accord':'smoky','metal accord':'smoky','chili pepper':'spicy','jasmine bud':'floral','roman chamomile':'aromatic',citron:'citrus',cedarwood:'woody',olibanum:'smoky',gardenia:'floral',
-myrtle:'aromatic',hazelnut:'gourmand','crystal moss':'woody','coconut water':'fresh','may rose':'floral'};
+myrtle:'aromatic',hazelnut:'gourmand','crystal moss':'woody','coconut water':'fresh','may rose':'floral',
+agarwood:'woody',davana:'fruity',frankincense:'smoky',cocoa:'gourmand',hawthorn:'floral',peppermint:'aromatic'};
 function noteFam(n){return NOTE_FAM[n]||'musky'}
+
+/* ---------- RESEARCHED NOTE-LEVEL ACCORDS ----------
+   Family scoring tells you whether two genres get along. But perfumery is
+   really built on specific note pairings. These tables encode classic
+   complementary accords perfumers reach for again and again (synergy, +)
+   and well-documented troublemakers (clash, -). Each entry is [noteA,noteB,
+   weight,label]; we scan BOTH fragrances' full note lists and reward/penalize
+   when one supplies noteA and the other supplies noteB. This is what lets a
+   rose + a quality oud, or a vanilla + a tobacco, out-score a generic match. */
+const NOTE_SYNERGY=[
+ ['rose','oud',6,'rose + oud'],['rose','agarwood',6,'rose + oud'],['oud','saffron',5,'saffron + oud'],
+ ['saffron','leather',5,'saffron + leather'],['rose','patchouli',4,'rose + patchouli'],
+ ['rose','sandalwood',3,'rose + sandalwood'],['vanilla','tobacco',6,'vanilla + tobacco'],
+ ['honey','tobacco',5,'honey + tobacco'],['leather','tobacco',4,'leather + tobacco'],
+ ['vanilla','coconut',5,'vanilla + coconut'],['vanilla','cacao',4,'vanilla + cacao'],
+ ['vanilla','cocoa',4,'vanilla + cocoa'],['vanilla','coffee',4,'vanilla + coffee'],
+ ['praline','coffee',4,'praline + coffee'],['almond','cherry',4,'almond + cherry'],
+ ['amber','vanilla',4,'amber + vanilla'],['amber','labdanum',4,'amber + labdanum'],
+ ['incense','amber',4,'incense + amber'],['frankincense','amber',4,'incense + amber'],
+ ['ambroxan','amber',5,'ambroxan + amber'],['ambroxan','vanilla',3,'ambroxan + vanilla'],
+ ['bergamot','vetiver',4,'bergamot + vetiver'],['grapefruit','vetiver',3,'grapefruit + vetiver'],
+ ['vetiver','cedar',3,'vetiver + cedar'],['cardamom','leather',4,'cardamom + leather'],
+ ['iris','leather',4,'iris + leather'],['patchouli','vanilla',4,'patchouli + vanilla'],
+ ['jasmine','sandalwood',3,'jasmine + sandalwood'],['cinnamon','tonka',4,'cinnamon + tonka'],
+ ['lavender','vanilla',4,'lavender + vanilla'],['lavender','tonka',3,'lavender + tonka'],
+ ['pineapple','birch',5,'pineapple + birch'],['coconut','tonka',4,'coconut + tonka'],
+ ['fig','coconut',3,'fig + coconut'],['rum','vanilla',4,'rum + vanilla'],['cognac','tobacco',5,'cognac + tobacco']
+];
+const NOTE_CLASH=[
+ ['marine notes','tobacco',6,'aquatic vs tobacco'],['marine notes','oud',6,'aquatic vs oud'],
+ ['marine notes','vanilla',4,'aquatic vs vanilla'],['sea notes','vanilla',4,'aquatic vs vanilla'],
+ ['sea notes','oud',5,'aquatic vs oud'],['marine accord','oud',5,'aquatic vs oud'],
+ ['sea salt','oud',4,'salt vs oud'],['seaweed','vanilla',4,'marine vs vanilla'],
+ ['mint','oud',4,'mint vs oud'],['mint','leather',3,'mint vs leather'],
+ ['aldehydes','tobacco',3,'aldehydes vs tobacco'],['cumin','marine notes',4,'cumin vs aquatic']
+];
+function noteAccords(a,b){
+  const aN=[...a.top,...(a.heart||[]),...a.base], bN=[...b.top,...(b.heart||[]),...b.base];
+  const hit=(t)=>(aN.includes(t[0])&&bN.includes(t[1]))||(aN.includes(t[1])&&bN.includes(t[0]));
+  let delta=0; const wins=[]; const risks=[];
+  for(const t of NOTE_SYNERGY) if(hit(t)){delta+=t[2]; wins.push(t[3]);}
+  for(const t of NOTE_CLASH)   if(hit(t)){delta-=t[2]; risks.push(t[3]);}
+  // diminishing returns: stacking five accords shouldn't dominate the score
+  delta=Math.max(-14, Math.min(delta, 15));
+  return {delta, wins:[...new Set(wins)], risks:[...new Set(risks)]};
+}
 
 /* ---------- SCORING ---------- */
 function scorePair(a,b){
@@ -150,19 +197,33 @@ function scorePair(a,b){
   const heavyCount=f=>f.fam.filter(x=>['smoky','leather','boozy','amber','gourmand'].includes(x)).length;
   if(heavyCount(a)>=2 && heavyCount(b)>=2) s-=2.5;
 
-  /* (D) variation stretch + de-clustering: expand each score's distance from a
-     neutral pivot so results fan out across a wide band (no ceiling pinning a
-     screen full of 88s). Then a small deterministic offset from average fit and
-     the gap between the top two bridges gives nearly every distinct pair its
-     own number, so the ranking is meaningful for research. The transform is
-     pure math on the same inputs, so the same pair always yields the same score. */
-  const PIVOT=64;
-  s = PIVOT + (s-PIVOT)*1.18;
+  /* (C2) researched note accords: the real perfumery layer — rewards classic
+     complementary note pairings (rose+oud, vanilla+tobacco, saffron+leather…)
+     and penalizes known clashes (aquatic+oud, mint+oud…). This is the biggest
+     driver of "why does THIS specific pair work" and adds real variation. */
+  const acc=noteAccords(a,b);
+  s += acc.delta;
+
+  /* (D) recenter + spread: the affinity matrix is generous, so the raw field
+     clusters high (~84). Recenter that typical pair down to the low-70s and
+     widen the gaps so the full range is actually used and pairs are rankable. */
+  const RAW_CENTER=84, TARGET=72, GAIN=1.25;
+  s = TARGET + (s-RAW_CENTER)*GAIN;
+
+  /* (E) soft knee: above the knee we compress, so elite pairs still rank
+     AGAINST EACH OTHER (a 91 vs a 96 stays meaningful) instead of every great
+     match flattening into a wall of 99s. */
+  const KNEE=86;
+  if(s>KNEE) s = KNEE + (s-KNEE)*0.5;
+
+  /* small deterministic offset from average fit and the gap between the top two
+     bridges gives nearly every distinct pair its own number, so the ranking is
+     meaningful for research. Pure math on the same inputs → stable scores. */
   s = s + (avg-70)*0.07 + (best-second)*0.05;
 
   s=Math.round(Math.max(25,Math.min(s,99)));
   if(cur) s=cur.s;                                       // curated classics override
-  return {score:s,shared,cur};
+  return {score:s,shared,cur,acc};
 }
 function whyText(a,b,r){
   if(r.cur) return r.cur.why;
@@ -174,6 +235,8 @@ function whyText(a,b,r){
     ? `Both lean <b>${f1}</b>, so they amplify rather than fight \u2014 expect a louder, deeper version of a profile you already like.`
     : `The core bridge is <b>${f1} \u00d7 ${f2}</b> \u2014 a pairing perfumers blend inside single compositions all the time, so your skin does the lab\u2019s job.`;
   if(r.shared.length) t+=` They also share <b>${r.shared.slice(0,3).join(', ')}</b>, fusing the two into one scent instead of two competing ones.`;
+  if(r.acc&&r.acc.wins.length) t+=` Classic accord at play: <b>${r.acc.wins.slice(0,2).join('</b>, <b>')}</b> \u2014 a pairing perfumers lean on, which is what pushes this match up.`;
+  if(r.acc&&r.acc.risks.length) t+=` Watch out: <b>${r.acc.risks[0]}</b> can fight, so go light on the second spray.`;
   return t;
 }
 function howText(a,b){

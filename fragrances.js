@@ -221,8 +221,8 @@ const FRAGS=[
 /* ---- YSL full lineup (incl. Le Vestiaire / Babycat) ---- */
 {id:'yslyparfum',name:'Y Le Parfum',house:'Yves Saint Laurent',fam:['aromatic','fruity','amber'],top:['lavender','apple','bergamot'],heart:['sage','juniper'],base:['cedar','tonka','amber'],season:'Fall–Winter',vibe:'richer warmer Y'},
 {id:'yslmyslfparfum',name:'MYSLF Le Parfum',house:'Yves Saint Laurent',fam:['floral','amber','woody'],top:['neroli'],heart:['orange blossom','vanilla'],base:['ambrette','patchouli','woods'],season:'Fall–Winter',vibe:'deeper warmer MYSLF'},
-{id:'yslbabycat',name:'Tuxedo (Babycat)',house:'Yves Saint Laurent',fam:['amber','leather','spicy'],top:['saffron','bergamot'],heart:['leather','iris'],base:['amber','vanilla','patchouli'],season:'Fall–Winter',vibe:'plush suede-amber niche'},
-{id:'yslfreedeluxe',name:'Free Delivery',house:'Yves Saint Laurent',fam:['gourmand','amber','aromatic'],top:['lavender','bergamot'],heart:['cinnamon','honey'],base:['vanilla','tonka','amber'],season:'Fall–Winter',vibe:'boozy honeyed lavender niche'},
+{id:'yslbabycat',name:'Tuxedo',house:'Yves Saint Laurent',fam:['amber','leather','spicy'],top:['saffron','bergamot'],heart:['leather','iris'],base:['amber','vanilla','patchouli'],season:'Fall–Winter',vibe:'plush suede-amber tailoring'},
+{id:'yslfreedeluxe',name:'Lavender Dream',house:'Yves Saint Laurent',fam:['aromatic','gourmand','powdery'],top:['lavender','bergamot'],heart:['almond','iris'],base:['vanilla','tonka','musk'],season:'Year-round',vibe:'creamy lavender-almond'},
 {id:'ysllibreintense',name:'Libre Intense',house:'Yves Saint Laurent',fam:['floral','amber','gourmand'],top:['lavender','mandarin','bergamot'],heart:['orange blossom','jasmine'],base:['vanilla','tonka','amber'],season:'Fall–Winter',vibe:'warmer vanillic Libre'},
 {id:'yslblackopiumneon',name:'Black Opium Le Parfum',house:'Yves Saint Laurent',fam:['gourmand','floral','amber'],top:['coffee','cherry'],heart:['jasmine','orange blossom'],base:['vanilla','patchouli','tonka'],season:'Fall–Winter',vibe:'richer coffee-cherry opium'},
 {id:'ysllhommeedt',name:'L\u2019Homme',house:'Yves Saint Laurent',fam:['citrus','spicy','woody'],top:['bergamot','ginger'],heart:['violet leaf','spices'],base:['cedar','vetiver','tonka'],season:'Year-round',vibe:'clean gingery signature'},
@@ -301,6 +301,65 @@ const FRAGS=[
 {id:'mancerredtobacco',name:'Red Tobacco',house:'Mancera',fam:['spicy','gourmand','smoky'],top:['saffron','cinnamon','nutmeg'],heart:['oud','tobacco'],base:['vanilla','amber','musk'],season:'Winter',vibe:'fiery spiced tobacco'},
 {id:'initiorehab',name:'Rehab',house:'Initio',fam:['gourmand','amber','musky'],top:['bergamot'],heart:['vanilla','benzoin'],base:['ambroxan','musk','woods'],season:'Year-round',vibe:'addictive vanilla-ambrox skin scent'},
 {id:'phlurmissingperson',name:'Missing Person',house:'Phlur',fam:['musky','floral','fresh'],top:['bergamot'],heart:['jasmine','orange blossom'],base:['musk','sandalwood','amber'],season:'Year-round',vibe:'clean intimate skin musk'},
-{id:'khamrahqahwa',name:'Khamrah Qahwa',house:'Lattafa',fam:['gourmand','boozy','spicy'],top:['coffee','cinnamon','nutmeg'],heart:['dates','praline'],base:['vanilla','tonka','amber'],season:'Winter',vibe:'coffee-spiced Khamrah'}
+{id:'khamrahqahwa',name:'Khamrah Qahwa',house:'Lattafa',fam:['gourmand','boozy','spicy'],top:['coffee','cinnamon','nutmeg'],heart:['dates','praline'],base:['vanilla','tonka','amber'],season:'Winter',vibe:'coffee-spiced Khamrah'},
+
+/* ---- batch 4: private collections, niche & ultra-luxury ---- */
+/* YSL Le Vestiaire des Parfums (private collection) */
+{id:'yslbabycatreal',name:'Babycat',house:'Yves Saint Laurent',fam:['leather','gourmand','amber'],top:['bergamot'],heart:['leather','honey'],base:['amber','vanilla','tonka'],season:'Fall–Winter',vibe:'honeyed suede leather'},
+{id:'yslsplendidwood',name:'Splendid Wood',house:'Yves Saint Laurent',fam:['woody','spicy','amber'],top:['pepper','bergamot'],heart:['cedar','vetiver'],base:['amber','musk','sandalwood'],season:'Year-round',vibe:'refined peppery woods'},
+{id:'yslcaban',name:'Caban',house:'Yves Saint Laurent',fam:['aromatic','woody','spicy'],top:['cardamom','bergamot'],heart:['lavender','sage'],base:['vetiver','cedar','tonka'],season:'Year-round',vibe:'spicy aromatic tailoring'},
+{id:'yslsunrock',name:'Sun Rock',house:'Yves Saint Laurent',fam:['amber','spicy','smoky'],top:['pepper','incense'],heart:['cardamom','labdanum'],base:['amber','woods','vanilla'],season:'Fall–Winter',vibe:'radiant resinous amber'},
+{id:'yslsupremebouquet',name:'Supreme Bouquet',house:'Yves Saint Laurent',fam:['floral','fruity','amber'],top:['bergamot','pear'],heart:['jasmine','orange blossom','rose'],base:['amber','vanilla','woods'],season:'Year-round',vibe:'opulent floral-amber'},
+{id:'yslsaharienne',name:'Saharienne',house:'Yves Saint Laurent',fam:['citrus','aromatic','fresh'],top:['bergamot','grapefruit','mint'],heart:['orange blossom','neroli'],base:['musk','woods'],season:'Spring–Summer',vibe:'bright desert citrus'},
+{id:'yslcuirmarrakech',name:'Cuir Marrakech',house:'Yves Saint Laurent',fam:['leather','spicy','woody'],top:['pepper','saffron'],heart:['leather','iris'],base:['cedar','amber','musk'],season:'Fall–Winter',vibe:'soft spiced leather'},
+/* Xerjoff + Casamorati */
+{id:'xjalexandria2',name:'Alexandria II',house:'Xerjoff',fam:['amber','spicy','woody'],top:['bergamot','lemon'],heart:['rose','jasmine','agarwood'],base:['oud','amber','vanilla'],season:'Winter',vibe:'regal oud-amber opulence'},
+{id:'xjlira',name:'Lira',house:'Xerjoff',fam:['gourmand','citrus','amber'],top:['bergamot','lavender'],heart:['caramel','cinnamon'],base:['vanilla','tonka','musk'],season:'Year-round',vibe:'caramel-citrus crowd-pleaser'},
+{id:'xjmefisto',name:'Mefisto',house:'Xerjoff',fam:['aromatic','floral','woody'],top:['bergamot','lavender'],heart:['orange blossom','geranium'],base:['vetiver','woods','musk'],season:'Spring–Fall',vibe:'clean refined fougère'},
+{id:'xjmorethanwords',name:'More Than Words',house:'Xerjoff',fam:['gourmand','floral','musky'],top:['bergamot'],heart:['orange blossom','vanilla'],base:['tonka','musk','ambergris'],season:'Year-round',vibe:'creamy vanilla-orange blossom'},
+{id:'xjgoldendallah',name:'Golden Dallah',house:'Xerjoff',fam:['gourmand','spicy','amber'],top:['coffee','cardamom'],heart:['cinnamon','dates'],base:['vanilla','amber','tonka'],season:'Winter',vibe:'spiced cardamom coffee'},
+/* Roja Parfums (ultra-luxury) */
+{id:'rojaelysium',name:'Elysium Pour Homme',house:'Roja Parfums',fam:['citrus','aromatic','woody'],top:['lemon','grapefruit','lime'],heart:['black pepper','juniper','apple'],base:['vetiver','musk','ambergris'],season:'Year-round',vibe:'luxury fresh-woody'},
+{id:'rojaenigma',name:'Enigma Pour Homme',house:'Roja Parfums',fam:['boozy','gourmand','spicy'],top:['cognac','bergamot'],heart:['cinnamon','pepper'],base:['tobacco','vanilla','amber'],season:'Fall–Winter',vibe:'cognac-tobacco luxe'},
+{id:'rojaoud',name:'Oud',house:'Roja Parfums',fam:['woody','spicy','amber'],top:['saffron','bergamot'],heart:['rose','oud'],base:['amber','sandalwood','musk'],season:'Winter',vibe:'lavish saffron-oud'},
+{id:'rojasweetieaoud',name:'Sweetie Aoud',house:'Roja Parfums',fam:['gourmand','fruity','amber'],top:['raspberry','bergamot'],heart:['rose','oud'],base:['vanilla','amber','musk'],season:'Fall–Winter',vibe:'candied berry-oud'},
+{id:'rojadanger',name:'Danger Pour Homme',house:'Roja Parfums',fam:['aromatic','fruity','woody'],top:['lime','pineapple','lemon'],heart:['lavender','jasmine'],base:['vetiver','cedar','oakmoss'],season:'Spring–Summer',vibe:'fresh fruity-fougère luxe'},
+/* Clive Christian (ultra-luxury) */
+{id:'cc1',name:'No. 1',house:'Clive Christian',fam:['woody','floral','amber'],top:['bergamot','cardamom','pineapple'],heart:['rose','jasmine','orris'],base:['sandalwood','vanilla','vetiver'],season:'Year-round',vibe:'ultra-luxury woody floral'},
+{id:'ccx',name:'X',house:'Clive Christian',fam:['woody','floral','spicy'],top:['bergamot','cardamom'],heart:['rose','orris','ylang'],base:['cedar','vetiver','musk'],season:'Year-round',vibe:'opulent spiced woods'},
+/* Amouage (luxury exclusives) */
+{id:'amjubilation25',name:'Jubilation XXV',house:'Amouage',fam:['fruity','spicy','smoky'],top:['blackberry','davana','frankincense'],heart:['honey','rose','cinnamon'],base:['myrrh','oud','patchouli'],season:'Fall–Winter',vibe:'jammy incense opulence'},
+{id:'amepicman',name:'Epic Man',house:'Amouage',fam:['spicy','woody','smoky'],top:['pink pepper','cardamom'],heart:['rose','geranium','oud'],base:['incense','sandalwood','leather'],season:'Winter',vibe:'cool spicy incense'},
+{id:'amlyricman',name:'Lyric Man',house:'Amouage',fam:['floral','spicy','woody'],top:['bergamot','lime'],heart:['rose','ginger','cinnamon'],base:['oud','sandalwood','vanilla'],season:'Fall–Winter',vibe:'rose-oud masterpiece'},
+/* Louis Vuitton (super-luxury) */
+{id:'lvattrapereves',name:'Attrape-Rêves',house:'Louis Vuitton',fam:['floral','gourmand','amber'],top:['bergamot'],heart:['peony','ginger'],base:['vanilla','cocoa','patchouli'],season:'Year-round',vibe:'cocoa-peony dream'},
+{id:'lvmeteore',name:'Météore',house:'Louis Vuitton',fam:['citrus','aromatic','woody'],top:['bergamot','mandarin','blackcurrant'],heart:['neroli','peppermint'],base:['vetiver','woods','musk'],season:'Spring–Summer',vibe:'sparkling citrus-woods'},
+{id:'lvimmensite',name:'L\u2019Immensité',house:'Louis Vuitton',fam:['aromatic','fresh','woody'],top:['grapefruit','bergamot','ginger'],heart:['rosemary'],base:['ambroxan','woods','musk'],season:'Year-round',vibe:'bright gingery ambrox'},
+{id:'lvnouveaumonde',name:'Nouveau Monde',house:'Louis Vuitton',fam:['gourmand','woody','smoky'],top:['saffron'],heart:['oud','cocoa'],base:['cocoa','leather','woods'],season:'Winter',vibe:'cocoa-oud decadence'},
+{id:'lvcaliforniadream',name:'California Dream',house:'Louis Vuitton',fam:['amber','citrus','woody'],top:['mandarin','bergamot'],heart:['labdanum','iris'],base:['amber','woods','musk'],season:'Year-round',vibe:'sunlit amber-citrus'},
+/* Initio (niche luxury) */
+{id:'initioparagon',name:'Paragon',house:'Initio',fam:['woody','aromatic','amber'],top:['bergamot','juniper'],heart:['lavender','geranium'],base:['oud','ambroxan','musk'],season:'Year-round',vibe:'refined ambrox-woods'},
+{id:'initiomusktherapy',name:'Musk Therapy',house:'Initio',fam:['musky','floral','woody'],top:['bergamot'],heart:['orris'],base:['musk','ambroxan','vanilla'],season:'Year-round',vibe:'clean addictive musk'},
+{id:'initioatomicrose',name:'Atomic Rose',house:'Initio',fam:['floral','fruity','musky'],top:['raspberry','pink pepper'],heart:['rose','peony'],base:['musk','ambroxan','woods'],season:'Year-round',vibe:'fizzy rose-musk'},
+/* Nishane (niche luxury) */
+{id:'nishaneani',name:'Ani',house:'Nishane',fam:['gourmand','floral','amber'],top:['bergamot','pink pepper'],heart:['jasmine','vanilla'],base:['vanilla','musk','sandalwood'],season:'Year-round',vibe:'creamy vanilla-floral'},
+{id:'nishanefanyourflames',name:'Fan Your Flames',house:'Nishane',fam:['smoky','gourmand','boozy'],top:['rum','saffron'],heart:['tobacco','cinnamon'],base:['vanilla','leather','woods'],season:'Winter',vibe:'boozy smoky tobacco'},
+{id:'nishanehundredsilent',name:'Hundred Silent Ways',house:'Nishane',fam:['floral','gourmand','musky'],top:['bergamot','mandarin'],heart:['orange blossom','jasmine'],base:['vanilla','sandalwood','musk'],season:'Year-round',vibe:'soft creamy white floral'},
+/* Parfums de Marly (exclusive line) */
+{id:'pdmalthair',name:'Althair',house:'Parfums de Marly',fam:['gourmand','amber','spicy'],top:['bergamot','almond'],heart:['cinnamon','vanilla'],base:['tonka','sandalwood','musk'],season:'Fall–Winter',vibe:'almond-vanilla warmth'},
+{id:'pdmhaltane',name:'Haltane',house:'Parfums de Marly',fam:['spicy','woody','amber'],top:['green apple','pepper'],heart:['rum','patchouli'],base:['oud','amber','vanilla'],season:'Winter',vibe:'boozy spicy oud'},
+{id:'pdmgodolphin',name:'Godolphin',house:'Parfums de Marly',fam:['leather','aromatic','woody'],top:['saffron','lavender','incense'],heart:['orange blossom','geranium'],base:['leather','vetiver','tonka'],season:'Fall–Winter',vibe:'spiced incense-leather'},
+/* Tiziana Terenzi (niche luxury) */
+{id:'ttorion',name:'Orion',house:'Tiziana Terenzi',fam:['woody','fruity','musky'],top:['bergamot','blackcurrant'],heart:['violet','musk'],base:['cedar','amber','vanilla'],season:'Year-round',vibe:'fruity ambered woods'},
+{id:'ttlaudanonero',name:'Laudano Nero',house:'Tiziana Terenzi',fam:['smoky','spicy','amber'],top:['incense','labdanum'],heart:['cinnamon','tobacco'],base:['amber','oud','vanilla'],season:'Winter',vibe:'dark resinous smoke'},
+/* Frederic Malle (editions de parfums) */
+{id:'fmportraitlady',name:'Portrait of a Lady',house:'Frederic Malle',fam:['floral','spicy','woody'],top:['cinnamon','raspberry'],heart:['rose','clove'],base:['patchouli','sandalwood','incense'],season:'Fall–Winter',vibe:'monumental rose-patchouli'},
+{id:'fmmuscravageur',name:'Musc Ravageur',house:'Frederic Malle',fam:['amber','gourmand','musky'],top:['bergamot','mandarin'],heart:['cinnamon','clove'],base:['vanilla','musk','amber'],season:'Fall–Winter',vibe:'sensual vanilla musk'},
+/* Maison Francis Kurkdjian (more) */
+{id:'mfkalarose',name:'L\u2019Homme À la Rose',house:'Maison Francis Kurkdjian',fam:['floral','citrus','musky'],top:['bergamot','grapefruit'],heart:['rose'],base:['musk','woods'],season:'Spring–Summer',vibe:'fresh masculine rose'},
+{id:'mfkpetitmatin',name:'Petit Matin',house:'Maison Francis Kurkdjian',fam:['citrus','floral','musky'],top:['bergamot','orange blossom'],heart:['lavender','hawthorn'],base:['ambergris','musk','woods'],season:'Spring–Summer',vibe:'crisp morning citrus-floral'},
+/* Byredo (more) */
+{id:'byredobaldafrique',name:'Bal d\u2019Afrique',house:'Byredo',fam:['floral','citrus','woody'],top:['bergamot','lemon'],heart:['violet','jasmine'],base:['vetiver','musk','amber'],season:'Spring–Summer',vibe:'warm vetiver-neroli vintage'},
+{id:'byredoblacksaffron',name:'Black Saffron',house:'Byredo',fam:['spicy','fruity','leather'],top:['saffron','blackberry','juniper'],heart:['leather','raspberry'],base:['vetiver','musk','amber'],season:'Fall–Winter',vibe:'saffron-berry leather'}
 ];
 if(typeof module!=='undefined') module.exports={FRAGS};
