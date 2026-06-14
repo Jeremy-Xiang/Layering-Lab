@@ -2,23 +2,53 @@
    THE LAYERING LAB — SCORING ENGINE + AFFILIATE CONFIG
    ============================================================ */
 
-/* ---------- AFFILIATE CONFIG: edit these 3 tags after signup ---------- */
+/* ---------- AFFILIATE CONFIG ----------
+   THREE ways to earn, in order of least effort:
+
+   (1) AMAZON  → set amazon.tag to your Amazon Associates tag. Direct, no network.
+   (2) SOVRN   → set SOVRN_KEY below. ONE signup auto-tracks every non-Amazon
+                 retailer link (Jomashop, FragranceX, FragranceNet, Notino,
+                 Sephora, …) at click time. Nothing else to edit. ← easiest way
+                 to cover "the other sites".
+   (3) DIRECT NETWORK DEEP LINKS (CJ / Rakuten / Impact) → if a merchant pays
+                 more when you link directly, paste its deep-link template into
+                 that retailer's `deeplink` field, using {url} where the encoded
+                 destination goes. A deeplink overrides Sovrn for that retailer.
+
+   The site EARNS NOTHING is never a blocker: with no IDs at all the buttons
+   still work as plain search links, so the page is useful from day one.        */
 const AFFILIATE = {
-  amazon:   { tag:'layeringlab-20',        label:'Amazon' },      // Amazon Associates
-  jomashop: { aff:'YOURJOMOID',        label:'Jomashop' },    // via Rakuten/Sovrn deep link
-  fragbuy:  { aff:'YOURFRAGNETID',     label:'FragranceX' }   // FragranceX/FragranceNet affiliate
+  amazon:   { tag:'layeringlab-20', label:'Amazon',      base:n=>`https://www.amazon.com/s?k=${encodeURIComponent(n+' eau de parfum')}` },
+  jomashop: { label:'Jomashop',     deeplink:'',         base:n=>`https://www.jomashop.com/search?q=${encodeURIComponent(n)}` },
+  fragbuy:  { label:'FragranceX',   deeplink:'',         base:n=>`https://www.fragrancex.com/search/search_results?stext=${encodeURIComponent(n)}` },
+  fragnet:  { label:'FragranceNet', deeplink:'',         base:n=>`https://www.fragrancenet.com/search?q=${encodeURIComponent(n)}` },
+  notino:   { label:'Notino',       deeplink:'',         base:n=>`https://www.notino.com/search/?q=${encodeURIComponent(n)}` },
+  sephora:  { label:'Sephora',      deeplink:'',         base:n=>`https://www.sephora.com/search?keyword=${encodeURIComponent(n)}` },
+  walmart:  { label:'Walmart',      deeplink:'',         base:n=>`https://www.walmart.com/search?q=${encodeURIComponent(n)}` }
 };
-/* Build a buy link for a given retailer. Falls back to plain search URL
-   until you insert your real IDs (so the site works on day one). */
-function buyLink(retailer, name){
-  const q=encodeURIComponent(name);
-  if(retailer==='amazon')
-    return `https://www.amazon.com/s?k=${encodeURIComponent(name+' eau de parfum')}&tag=${AFFILIATE.amazon.tag}`;
-  if(retailer==='jomashop')
-    return `https://www.jomashop.com/search?q=${q}`;     // wrap with your Rakuten deep-link generator
-  if(retailer==='fragbuy')
-    return `https://www.fragrancex.com/search/search_results?stext=${q}`; // wrap with affiliate network link
-  return `https://www.google.com/search?q=${q}`;
+/* Hand-made Sovrn / network links for specific fragrances (override buyLink). */
+const SOVRN_LINKS = {
+  br540: { walmart: 'https://sovrn.co/1qvyf9r' }
+};
+/* Sovrn Commerce (VigLink) auto-affiliation key. Get it free at
+   sovrn.com/commerce, paste your site key here, and every non-Amazon link
+   starts paying you with zero per-link work. Leave '' to disable. */
+const SOVRN_KEY = '';
+/* Which retailers show as buttons, in display order. Add 'fragnet','notino',
+   'sephora' here if you want more buttons once their programs are live. */
+const BUY_RETAILERS = ['amazon','jomashop','fragbuy'];
+
+/* Build a buy link for a retailer. Amazon gets its tag appended directly; other
+   retailers use a network deep-link template if provided, otherwise the plain
+   URL (which Sovrn tracks at click time when SOVRN_KEY is set). */
+function buyLink(retailer, name, fragId){
+  if(fragId && SOVRN_LINKS[fragId]?.[retailer]) return SOVRN_LINKS[fragId][retailer];
+  const cfg=AFFILIATE[retailer];
+  if(!cfg) return `https://www.google.com/search?q=${encodeURIComponent(name)}`;
+  const url=cfg.base(name);
+  if(retailer==='amazon') return url + (cfg.tag?`&tag=${cfg.tag}`:'');
+  if(cfg.deeplink) return cfg.deeplink.replace('{url}', encodeURIComponent(url));
+  return url;
 }
 
 const FAM_COLOR={citrus:'--c-citrus',fresh:'--c-fresh',aromatic:'--c-aromatic',fruity:'--c-fruity',floral:'--c-floral',gourmand:'--c-gourmand',amber:'--c-amber',spicy:'--c-spicy',woody:'--c-woody',leather:'--c-leather',smoky:'--c-smoky',musky:'--c-musky',boozy:'--c-boozy',powdery:'--c-powdery'};
@@ -245,4 +275,4 @@ function howText(a,b){
   const first=w(a)>=w(b)?a:b, second=first===a?b:a;
   return `Apply <b>${first.name}</b> first (heavier base), wait ~30 seconds, then 1\u20132 sprays of <b>${second.name}</b> over or beside it. Start 2:2 and adjust.`;
 }
-if(typeof module!=='undefined') module.exports={scorePair,whyText,howText,noteFam,FAM_COLOR,buyLink,AFFILIATE,CURATED};
+if(typeof module!=='undefined') module.exports={scorePair,whyText,howText,noteFam,FAM_COLOR,buyLink,AFFILIATE,SOVRN_KEY,SOVRN_LINKS,BUY_RETAILERS,CURATED};

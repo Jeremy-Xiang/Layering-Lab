@@ -152,6 +152,7 @@ footer a{color:var(--amber)}
       <div class="base-notes" id="baseNotes"></div>
       <button class="swap" id="swapBtn">Change fragrance</button>
     </div>
+    <div id="baseBuy"></div>
     <div class="results-h">
       <h3>Best pairings</h3>
       <span>Tap a pairing to see the blended pyramid</span>
@@ -197,6 +198,18 @@ footer a{color:var(--amber)}
 <script src="fragrances.js"></script>
 <script src="engine.js"></script>
 <script>
+/* Sovrn / VigLink auto-affiliation. Stays completely inert until you set
+   SOVRN_KEY in engine.js. Once set, it converts every outbound retailer link
+   (everything except Amazon, which uses its own tag) into a tracked,
+   commission-earning link at click time — including links added dynamically. */
+if(typeof SOVRN_KEY!=='undefined' && SOVRN_KEY){
+  window.vglnk={key:SOVRN_KEY};
+  (function(d,t){var s=d.createElement(t);s.type='text/javascript';s.async=true;
+    s.src='//cdn.viglink.com/api/vglnk.js';
+    var r=d.getElementsByTagName(t)[0];r.parentNode.insertBefore(s,r);}(document,'script'));
+}
+</script>
+<script>
 const $=s=>document.querySelector(s);
 const HOUSE_ALIAS={'yves saint laurent':'ysl','jean paul gaultier':'jpg jean paul gaultier gaultier','maison francis kurkdjian':'mfk kurkdjian','dolce & gabbana':'dg dolce gabbana','tom ford':'tf tom ford','parfums de marly':'pdm marly','giorgio armani':'armani','louis vuitton':'lv louis vuitton','viktor & rolf':'viktor rolf vr','carolina herrera':'ch carolina herrera','paco rabanne':'paco rabanne','maison margiela':'margiela replica'};
 function searchText(f){ return (f.name+' '+f.house+' '+(HOUSE_ALIAS[f.house.toLowerCase()]||'')).toLowerCase(); }
@@ -232,9 +245,11 @@ q.addEventListener('keydown',e=>{
 });
 document.addEventListener('click',e=>{if(!e.target.closest('.picker'))dd.classList.remove('open')});
 
-function buyButtons(name){
-  const btn=(ret)=>'<a class="buy" href="'+buyLink(ret,name)+'" target="_blank" rel="noopener sponsored">Check price <small>'+AFFILIATE[ret].label+' ↗</small></a>';
-  return '<div class="buy-row"><div class="buy-lbl">Where to buy '+name+'</div><div class="buy-btns">'+btn('amazon')+btn('jomashop')+btn('fragbuy')+'</div></div>';
+function buyButtons(name, fragId){
+  const extra=fragId&&SOVRN_LINKS[fragId]?Object.keys(SOVRN_LINKS[fragId]).filter(r=>!BUY_RETAILERS.includes(r)):[];
+  const retailers=[...BUY_RETAILERS,...extra];
+  const btn=(ret)=>'<a class="buy" href="'+buyLink(ret,name,fragId)+'" target="_blank" rel="noopener sponsored">Check price <small>'+AFFILIATE[ret].label+' ↗</small></a>';
+  return '<div class="buy-row"><div class="buy-lbl">Where to buy '+name+'</div><div class="buy-btns">'+retailers.map(btn).join('')+'</div></div>';
 }
 function pyramidHTML(a,b){
   const tier=(la,lb,label)=>{
@@ -252,6 +267,7 @@ function select(id){
   $('#baseName').textContent=current.name;
   $('#baseHouse').textContent=current.house+' · '+current.vibe;
   $('#baseNotes').innerHTML=[...current.top,...(current.heart||[]),...current.base].slice(0,7).map(n=>'<span class="chip">'+n+'</span>').join('');
+  $('#baseBuy').innerHTML=SOVRN_LINKS[current.id]?buyButtons(current.name,current.id):'';
   const ranked=FRAGS.filter(f=>f.id!==id).map(f=>({f,r:scorePair(current,f)})).sort((a,b)=>b.r.score-a.r.score).slice(0,6);
   results.innerHTML='';
   ranked.forEach(({f,r},idx)=>{
