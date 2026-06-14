@@ -328,7 +328,7 @@ function renderCompare(){
   if(!cmpA||!cmpB){box.innerHTML='';return}
   if(cmpA.id===cmpB.id){box.innerHTML='<p class="compare-intro">Pick two <em>different</em> fragrances to compare.</p>';return}
   const r=scorePair(cmpA,cmpB);
-  const verdict = r.score>=88?'Exceptional match':r.score>=80?'Strong match':r.score>=70?'Solid, ratio-sensitive':r.score>=60?'Workable with care':'Risky — likely clashes';
+  const verdict = r.score>=90?'Exceptional match':r.score>=80?'Strong match':r.score>=68?'Solid, ratio-sensitive':r.score>=55?'Workable with care':'Risky — likely clashes';
   box.innerHTML=
     '<div class="pair open" style="border-color:var(--amber)">'+
       '<div class="pair-top" style="cursor:default">'+

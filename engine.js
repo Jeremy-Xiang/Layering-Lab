@@ -90,7 +90,8 @@ truffle:'woody','black tea':'aromatic',plum:'fruity',dewberry:'fruity','red berr
 'cashmere wood':'woody',cashmere:'woody',opoponax:'amber',styrax:'amber','peru balsam':'amber',ambrox:'amber',
 aldehydes:'powdery','coconut milk':'fruity',chestnut:'gourmand','sea salt':'fresh',driftwood:'woody',
 pomegranate:'fruity',yuzu:'citrus',mahogany:'woody',blackberry:'fruity',cassis:'fruity','bitter orange':'citrus',blueberry:'fruity',civet:'musky',
-cherry:'fruity','ginger lily':'floral',meringue:'gourmand','frozen rum accord':'boozy','watery notes':'fresh','aquatic notes':'fresh','atlas cedar':'woody','haitian vetiver':'woody',elemi:'woody','black currant':'fruity','coal accord':'smoky','metal accord':'smoky','chili pepper':'spicy','jasmine bud':'floral','roman chamomile':'aromatic',citron:'citrus',cedarwood:'woody',olibanum:'smoky',gardenia:'floral'};
+cherry:'fruity','ginger lily':'floral',meringue:'gourmand','frozen rum accord':'boozy','watery notes':'fresh','aquatic notes':'fresh','atlas cedar':'woody','haitian vetiver':'woody',elemi:'woody','black currant':'fruity','coal accord':'smoky','metal accord':'smoky','chili pepper':'spicy','jasmine bud':'floral','roman chamomile':'aromatic',citron:'citrus',cedarwood:'woody',olibanum:'smoky',gardenia:'floral',
+myrtle:'aromatic',hazelnut:'gourmand','crystal moss':'woody','coconut water':'fresh','may rose':'floral'};
 function noteFam(n){return NOTE_FAM[n]||'musky'}
 
 /* ---------- SCORING ---------- */
@@ -105,18 +106,23 @@ function scorePair(a,b){
   const second=pairs[1] ?? best;                         // backup bridge
   const worst=pairs[pairs.length-1];                     // weakest interaction
   const avg=pairs.reduce((t,v)=>t+v,0)/pairs.length;     // overall family fit
+  const spread=best-worst;                               // how much the families disagree
 
-  /* (A) widen the band: lead with the strongest bridge, reward a strong
-     SECOND bridge (two real connections beats one), and let the overall
-     average pull the score so generic-but-fine pairs sit lower than
-     genuinely well-matched ones. Coefficients sum to weight the top hard. */
-  let s = best*0.46 + second*0.20 + avg*0.24 + worst*0.10;
+  /* (A) base blend: anchor on the overall average family fit (so a pair has to
+     be broadly compatible, not just have one lucky bridge), then let the
+     strongest bridge lift and the weakest interaction bite. Centered lower
+     than before so the full 0–100 range is actually used. */
+  let s = avg*0.40 + best*0.30 + second*0.12 + worst*0.18;
 
-  /* clash penalty: a hard incompatibility (marine vs heavy smoke) drags more */
-  if(worst<50) s-=(50-worst)*1.0;
-  /* small bonus only for a near-perfect primary bridge, so elite matches
-     edge upward without everything pinning to the cap */
-  if(best>=88) s+=(best-88)*0.5;
+  /* clash penalty: a hard incompatibility (marine vs heavy smoke) drags hard.
+     A wide internal spread (some families love each other, others clash) is a
+     "mixed signal" blend, so it loses points to clean, coherent pairs. */
+  if(worst<50) s-=(50-worst)*1.1;
+  if(spread>=25) s-=(spread-25)*0.22;
+  /* elite-bridge reward, UNCAPPED so genuine standouts pull away from the pack
+     instead of everyone piling onto the same ceiling number. Reserved for
+     near-perfect primary bridges only. */
+  if(best>=88) s+=(best-88)*0.7;
 
   /* (B) shared-note granularity: notes shared in the SAME tier (both tops,
      both bases) fuse far better than notes scattered across tiers. Weight
@@ -129,26 +135,33 @@ function scorePair(a,b){
   const aN=[...a.top,...(a.heart||[]),...a.base], bN=[...b.top,...(b.heart||[]),...b.base];
   const shared=aN.filter(n=>bN.includes(n));
   const crossShared=Math.max(0, shared.length-(topS+heartS+baseS)); // shared but different tiers
-  s += Math.min(baseS*4 + heartS*3 + topS*2 + crossShared*1, 12);
+  s += Math.min(baseS*4 + heartS*3 + topS*2 + crossShared*1, 11);
 
-  /* (C) tie-breakers --------------------------------------------------- */
-  // season alignment: same season window blends more believably
+  /* (C) tie-breakers / context ---------------------------------------- */
+  // season alignment: same season window blends more believably; opposite
+  // seasons (e.g. a Summer aquatic + a Winter tobacco) lose a touch
   if(a.season===b.season && a.season!=='Year-round') s+=2.5;
-  else if(a.season==='Year-round' || b.season==='Year-round') s+=1;
+  else if(a.season==='Year-round' || b.season==='Year-round') s+=0.5;
+  else s-=2.5;
   // gourmand/amber pairs are the most forgiving to layer in practice
   const sweet=f=>f.fam.some(x=>['gourmand','amber','boozy'].includes(x));
-  if(sweet(a)&&sweet(b)) s+=2;
-  // two very loud heavy fragrances can overwhelm — slight nudge down
+  if(sweet(a)&&sweet(b)) s+=1.5;
+  // two very loud heavy fragrances can overwhelm — nudge down
   const heavyCount=f=>f.fam.filter(x=>['smoky','leather','boozy','amber','gourmand'].includes(x)).length;
-  if(heavyCount(a)>=2 && heavyCount(b)>=2) s-=2;
+  if(heavyCount(a)>=2 && heavyCount(b)>=2) s-=2.5;
 
-  /* (A) final band: computed scores span ~55–88; curated classics (88–96)
-     sit clearly above. A tiny deterministic offset from the average family
-     fit breaks visual ties so a screen full of identical numbers can't happen
-     while keeping scores stable (same pair always = same score). */
-  s = s + (avg-70)*0.04;
-  s=Math.round(Math.max(40,Math.min(s,88)));
-  if(cur) s=cur.s;                                       // curated classics override (88–96)
+  /* (D) variation stretch + de-clustering: expand each score's distance from a
+     neutral pivot so results fan out across a wide band (no ceiling pinning a
+     screen full of 88s). Then a small deterministic offset from average fit and
+     the gap between the top two bridges gives nearly every distinct pair its
+     own number, so the ranking is meaningful for research. The transform is
+     pure math on the same inputs, so the same pair always yields the same score. */
+  const PIVOT=64;
+  s = PIVOT + (s-PIVOT)*1.18;
+  s = s + (avg-70)*0.07 + (best-second)*0.05;
+
+  s=Math.round(Math.max(25,Math.min(s,99)));
+  if(cur) s=cur.s;                                       // curated classics override
   return {score:s,shared,cur};
 }
 function whyText(a,b,r){
