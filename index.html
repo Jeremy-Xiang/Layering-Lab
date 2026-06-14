@@ -36,6 +36,20 @@ h1{font-family:var(--display);font-weight:400;font-size:clamp(34px,6vw,54px);lin
 h1 em{font-style:normal;color:var(--amber)}
 .sub{max-width:540px;margin:16px auto 0;color:var(--ink-soft);font-size:16.5px}
 .count{margin-top:10px;font-size:13px;color:var(--ink-soft)}
+.mode-toggle{display:flex;gap:0;max-width:520px;margin:8px auto 28px;border:1.5px solid var(--line);border-radius:99px;padding:4px;background:var(--card)}
+.mode-btn{flex:1;padding:11px 16px;border:none;background:none;font:inherit;font-size:14.5px;font-weight:700;color:var(--ink-soft);border-radius:99px;cursor:pointer;transition:background .15s,color .15s}
+.mode-btn.active{background:var(--ink);color:#EDEFE8}
+.compare-intro{max-width:600px;margin:0 auto 24px;text-align:center;color:var(--ink-soft);font-size:15.5px}
+.compare-grid{display:grid;grid-template-columns:1fr auto 1fr;gap:14px;align-items:start;max-width:680px;margin:0 auto}
+.cmp-slot{position:relative}
+.cmp-lbl{display:block;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:8px}
+.cmp-search{padding:13px 15px;font-size:15.5px}
+.cmp-plus{font-family:var(--display);font-size:26px;color:var(--amber);padding-top:30px}
+#compareResult{margin-top:30px}
+@media(max-width:560px){
+  .compare-grid{grid-template-columns:1fr;gap:8px}
+  .cmp-plus{padding:4px 0;text-align:center}
+}
 .picker{margin:30px auto 0;max-width:640px;position:relative}
 .search{width:100%;padding:16px 18px;font-size:17px;font-family:var(--body);border:1.5px solid var(--line);border-radius:10px;background:var(--card);color:var(--ink);outline:none;transition:border-color .15s}
 .search:focus{border-color:var(--amber)}
@@ -116,8 +130,14 @@ footer a{color:var(--amber)}
   <p class="count" id="count"></p>
 </header>
 <main class="wrap">
+  <div class="mode-toggle" role="tablist">
+    <button class="mode-btn active" id="modeFind" role="tab" aria-selected="true">Find my best pairings</button>
+    <button class="mode-btn" id="modeCompare" role="tab" aria-selected="false">Compare any two</button>
+  </div>
+
+  <div id="findMode">
   <div class="picker">
-    <input id="q" class="search" type="text" placeholder="Search 95+ fragrances — try “Khamrah” or “Baccarat”" autocomplete="off" aria-label="Search fragrances">
+    <input id="q" class="search" type="text" placeholder="Search 244 fragrances — try “Khamrah” or “Baccarat”" autocomplete="off" aria-label="Search fragrances">
     <div id="dd" class="dropdown" role="listbox"></div>
     <p class="hint">Tip: tap the box to browse all, or start typing a name or house.</p>
   </div>
@@ -137,6 +157,26 @@ footer a{color:var(--amber)}
     </div>
     <div id="results"></div>
   </section>
+  </div>
+
+  <div id="compareMode" hidden>
+    <p class="compare-intro">Pick any two fragrances and get their layering match score — the engine computes compatibility for any combination, even ones nobody's tried.</p>
+    <div class="compare-grid">
+      <div class="cmp-slot">
+        <label class="cmp-lbl">Fragrance one</label>
+        <input id="cA" class="search cmp-search" type="text" placeholder="Search…" autocomplete="off">
+        <div id="ddA" class="dropdown" role="listbox"></div>
+      </div>
+      <div class="cmp-plus">+</div>
+      <div class="cmp-slot">
+        <label class="cmp-lbl">Fragrance two</label>
+        <input id="cB" class="search cmp-search" type="text" placeholder="Search…" autocomplete="off">
+        <div id="ddB" class="dropdown" role="listbox"></div>
+      </div>
+    </div>
+    <div id="compareResult"></div>
+  </div>
+
   <section class="guide">
     <h3>How fragrance layering actually works</h3>
     <p>Layering works when two fragrances share a bridge — a note or accord that appears in both, or two families that perfumers routinely blend inside a single bottle (vanilla with tobacco, citrus with vetiver, rose with oud). Without a bridge you don’t get a new scent, you get two scents arguing.</p>
@@ -150,13 +190,15 @@ footer a{color:var(--amber)}
     <a href="baccarat-rouge-540-layering.html">Baccarat Rouge 540</a> ·
     <a href="le-male-elixir-layering.html">Le Male Elixir</a> ·
     <a href="sauvage-layering.html">Dior Sauvage</a></p>
-  <p>Built by a fragrance enthusiast, not a brand. “Check price” links may be affiliate links — they never change the scores or rankings.</p>
+  <p>Disclosure: as an Amazon Associate and affiliate, this site may earn from qualifying purchases. “Check price” links never affect the scores or rankings.</p>
 </footer>
 
 <script src="fragrances.js"></script>
 <script src="engine.js"></script>
 <script>
 const $=s=>document.querySelector(s);
+const HOUSE_ALIAS={'yves saint laurent':'ysl','jean paul gaultier':'jpg jean paul gaultier gaultier','maison francis kurkdjian':'mfk kurkdjian','dolce & gabbana':'dg dolce gabbana','tom ford':'tf tom ford','parfums de marly':'pdm marly','giorgio armani':'armani','louis vuitton':'lv louis vuitton','viktor & rolf':'viktor rolf vr','carolina herrera':'ch carolina herrera','paco rabanne':'paco rabanne','maison margiela':'margiela replica'};
+function searchText(f){ return (f.name+' '+f.house+' '+(HOUSE_ALIAS[f.house.toLowerCase()]||'')).toLowerCase(); }
 const q=$('#q'),dd=$('#dd'),stage=$('#stage'),results=$('#results');
 let kbIdx=-1,current=null;
 $('#count').textContent=FRAGS.length+' fragrances in the database and growing';
@@ -176,7 +218,7 @@ q.addEventListener('focus',()=>{ if(!q.value.trim()) renderDropdown(FRAGS.slice(
 q.addEventListener('input',()=>{
   const v=q.value.trim().toLowerCase();
   if(!v){renderDropdown(FRAGS.slice().sort((a,b)=>a.name.localeCompare(b.name)));return}
-  renderDropdown(FRAGS.filter(f=>(f.name+' '+f.house).toLowerCase().includes(v)));
+  renderDropdown(FRAGS.filter(f=>searchText(f).includes(v)));
 });
 q.addEventListener('keydown',e=>{
   const opts=[...dd.querySelectorAll('.opt[data-id]')];
@@ -235,6 +277,74 @@ function select(id){
   stage.scrollIntoView({behavior:'smooth',block:'start'});
 }
 $('#swapBtn').addEventListener('click',()=>{q.value='';q.focus();window.scrollTo({top:0,behavior:'smooth'})});
+
+/* ---------- mode switching ---------- */
+const findMode=$('#findMode'),compareMode=$('#compareMode');
+const modeFind=$('#modeFind'),modeCompare=$('#modeCompare');
+function setMode(compare){
+  findMode.hidden=compare; compareMode.hidden=!compare;
+  modeFind.classList.toggle('active',!compare); modeCompare.classList.toggle('active',compare);
+  modeFind.setAttribute('aria-selected',!compare); modeCompare.setAttribute('aria-selected',compare);
+}
+modeFind.addEventListener('click',()=>setMode(false));
+modeCompare.addEventListener('click',()=>setMode(true));
+
+/* ---------- reusable autocomplete for compare slots ---------- */
+let cmpA=null, cmpB=null;
+function makeAutocomplete(inputId,ddId,onPick){
+  const input=$(inputId), dd=$(ddId); let kb=-1;
+  function render(list){
+    dd.innerHTML='';
+    if(!list.length){dd.innerHTML='<div class="opt"><span class="hs">No match</span></div>';dd.classList.add('open');return}
+    list.slice(0,10).forEach(f=>{
+      const o=document.createElement('div');o.className='opt';o.dataset.id=f.id;
+      o.innerHTML='<div><div class="nm">'+f.name+'</div><div class="hs">'+f.house+'</div></div><span class="fam-mini">'+f.fam.join(' · ')+'</span>';
+      o.addEventListener('click',()=>{input.value=f.name;dd.classList.remove('open');onPick(f)});
+      dd.appendChild(o);
+    });
+    kb=-1;dd.classList.add('open');
+  }
+  input.addEventListener('focus',()=>{ if(!input.value.trim()) render(FRAGS.slice().sort((a,b)=>a.name.localeCompare(b.name))) });
+  input.addEventListener('input',()=>{
+    const v=input.value.trim().toLowerCase();
+    render(v?FRAGS.filter(f=>searchText(f).includes(v)):FRAGS.slice().sort((a,b)=>a.name.localeCompare(b.name)));
+  });
+  input.addEventListener('keydown',e=>{
+    const opts=[...dd.querySelectorAll('.opt[data-id]')];
+    if(e.key==='ArrowDown'){e.preventDefault();kb=Math.min(kb+1,opts.length-1)}
+    else if(e.key==='ArrowUp'){e.preventDefault();kb=Math.max(kb-1,0)}
+    else if(e.key==='Enter'&&kb>=0){opts[kb].click();return}
+    else return;
+    opts.forEach((o,i)=>o.classList.toggle('kb',i===kb));
+  });
+  document.addEventListener('click',e=>{if(!e.target.closest('#'+ddId.slice(1)) && e.target!==input)dd.classList.remove('open')});
+}
+makeAutocomplete('#cA','#ddA',f=>{cmpA=f;renderCompare()});
+makeAutocomplete('#cB','#ddB',f=>{cmpB=f;renderCompare()});
+
+function renderCompare(){
+  const box=$('#compareResult');
+  if(!cmpA||!cmpB){box.innerHTML='';return}
+  if(cmpA.id===cmpB.id){box.innerHTML='<p class="compare-intro">Pick two <em>different</em> fragrances to compare.</p>';return}
+  const r=scorePair(cmpA,cmpB);
+  const verdict = r.score>=88?'Exceptional match':r.score>=80?'Strong match':r.score>=70?'Solid, ratio-sensitive':r.score>=60?'Workable with care':'Risky — likely clashes';
+  box.innerHTML=
+    '<div class="pair open" style="border-color:var(--amber)">'+
+      '<div class="pair-top" style="cursor:default">'+
+        '<div class="score">'+r.score+'<small>match</small></div>'+
+        '<div><div class="pair-name">'+cmpA.name+' + '+cmpB.name+'</div>'+
+        '<div class="pair-house">'+verdict+'</div>'+
+        '<div class="tags">'+[...new Set([...cmpA.fam,...cmpB.fam])].map(fm=>'<span class="tag" style="'+chipColor(fm)+'">'+fm+'</span>').join('')+'</div></div>'+
+      '</div>'+
+      '<div class="pair-body">'+
+        '<p class="why">'+whyText(cmpA,cmpB,r)+'</p>'+
+        '<p class="howto">'+howText(cmpA,cmpB)+'</p>'+
+        buyButtons(cmpA.name)+buyButtons(cmpB.name)+
+        pyramidHTML(cmpA,cmpB)+
+      '</div>'+
+    '</div>';
+  box.scrollIntoView({behavior:'smooth',block:'nearest'});
+}
 </script>
 </body>
 </html>

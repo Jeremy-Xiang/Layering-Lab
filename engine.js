@@ -80,10 +80,17 @@ leather:'leather',suede:'leather',birch:'smoky',incense:'smoky',tobacco:'smoky',
 musk:'musky','white musk':'musky','clean musk':'musky','mineral musk':'musky',ambrette:'musky',
 'marine notes':'fresh','marine accord':'fresh',seaweed:'fresh',salt:'fresh','sea notes':'fresh',
 'white rum':'boozy',rum:'boozy','red liquor accord':'boozy',cognac:'boozy',
-'sichuan pepper':'spicy',coriander:'spicy',
-'virginia cedar':'woody',cypress:'woody',myrrh:'woody','clary sage':'aromatic',
+'sichuan pepper':'spicy',coriander:'spicy',clove:'spicy',anise:'spicy',
+'virginia cedar':'woody',cypress:'woody',myrrh:'woody','clary sage':'aromatic',basil:'aromatic',thyme:'aromatic',artemisia:'aromatic',
 carnation:'floral',lotus:'floral',mimosa:'floral',hyacinth:'floral',freesia:'floral','lily of the valley':'floral',
-melon:'fruity',quince:'fruity'};
+tiare:'floral',narcissus:'floral',ylang:'floral',lily:'floral','water jasmine':'floral','ginger flower':'floral','almond milk':'gourmand',
+melon:'fruity',quince:'fruity',fig:'fruity','fig leaf':'woody','green notes':'aromatic','green mandarin':'citrus',
+truffle:'woody','black tea':'aromatic',plum:'fruity',dewberry:'fruity','red berries':'fruity','wild berries':'fruity',apricot:'fruity',
+'petrol accord':'smoky',chocolate:'gourmand','salted vanilla':'gourmand','brown sugar':'gourmand',pistachio:'gourmand',marshmallow:'gourmand',date:'fruity',caraway:'spicy',
+'cashmere wood':'woody',cashmere:'woody',opoponax:'amber',styrax:'amber','peru balsam':'amber',ambrox:'amber',
+aldehydes:'powdery','coconut milk':'fruity',chestnut:'gourmand','sea salt':'fresh',driftwood:'woody',
+pomegranate:'fruity',yuzu:'citrus',mahogany:'woody',blackberry:'fruity',cassis:'fruity','bitter orange':'citrus',blueberry:'fruity',civet:'musky',
+cherry:'fruity','ginger lily':'floral',meringue:'gourmand','frozen rum accord':'boozy','watery notes':'fresh','aquatic notes':'fresh','atlas cedar':'woody','haitian vetiver':'woody',elemi:'woody','black currant':'fruity','coal accord':'smoky','metal accord':'smoky','chili pepper':'spicy','jasmine bud':'floral','roman chamomile':'aromatic',citron:'citrus',cedarwood:'woody',olibanum:'smoky',gardenia:'floral'};
 function noteFam(n){return NOTE_FAM[n]||'musky'}
 
 /* ---------- SCORING ---------- */
