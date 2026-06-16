@@ -4,7 +4,7 @@
 
 /* ---------- AFFILIATE CONFIG: edit these 3 tags after signup ---------- */
 const AFFILIATE = {
-  amazon:   { tag:'YOURTAG-20',        label:'Amazon' },      // Amazon Associates
+  amazon:   { tag:'layeringlab-20',        label:'Amazon' },      // Amazon Associates
   jomashop: { aff:'YOURJOMOID',        label:'Jomashop' },    // via Rakuten/Sovrn deep link
   fragbuy:  { aff:'YOURFRAGNETID',     label:'FragranceX' }   // FragranceX/FragranceNet affiliate
 };
