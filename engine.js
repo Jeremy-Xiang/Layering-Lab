@@ -2,53 +2,23 @@
    THE LAYERING LAB — SCORING ENGINE + AFFILIATE CONFIG
    ============================================================ */
 
-/* ---------- AFFILIATE CONFIG ----------
-   THREE ways to earn, in order of least effort:
-
-   (1) AMAZON  → set amazon.tag to your Amazon Associates tag. Direct, no network.
-   (2) SOVRN   → set SOVRN_KEY below. ONE signup auto-tracks every non-Amazon
-                 retailer link (Jomashop, FragranceX, FragranceNet, Notino,
-                 Sephora, …) at click time. Nothing else to edit. ← easiest way
-                 to cover "the other sites".
-   (3) DIRECT NETWORK DEEP LINKS (CJ / Rakuten / Impact) → if a merchant pays
-                 more when you link directly, paste its deep-link template into
-                 that retailer's `deeplink` field, using {url} where the encoded
-                 destination goes. A deeplink overrides Sovrn for that retailer.
-
-   The site EARNS NOTHING is never a blocker: with no IDs at all the buttons
-   still work as plain search links, so the page is useful from day one.        */
+/* ---------- AFFILIATE CONFIG: edit these 3 tags after signup ---------- */
 const AFFILIATE = {
-  amazon:   { tag:'layeringlab-20', label:'Amazon',      base:n=>`https://www.amazon.com/s?k=${encodeURIComponent(n+' eau de parfum')}` },
-  jomashop: { label:'Jomashop',     deeplink:'',         base:n=>`https://www.jomashop.com/search?q=${encodeURIComponent(n)}` },
-  fragbuy:  { label:'FragranceX',   deeplink:'',         base:n=>`https://www.fragrancex.com/search/search_results?stext=${encodeURIComponent(n)}` },
-  fragnet:  { label:'FragranceNet', deeplink:'',         base:n=>`https://www.fragrancenet.com/search?q=${encodeURIComponent(n)}` },
-  notino:   { label:'Notino',       deeplink:'',         base:n=>`https://www.notino.com/search/?q=${encodeURIComponent(n)}` },
-  sephora:  { label:'Sephora',      deeplink:'',         base:n=>`https://www.sephora.com/search?keyword=${encodeURIComponent(n)}` },
-  walmart:  { label:'Walmart',      deeplink:'',         base:n=>`https://www.walmart.com/search?q=${encodeURIComponent(n)}` }
+  amazon:   { tag:'layeringlab-20',        label:'Amazon' },      // Amazon Associates
+  jomashop: { aff:'YOURJOMOID',        label:'Jomashop' },    // via Rakuten/Sovrn deep link
+  fragbuy:  { aff:'YOURFRAGNETID',     label:'FragranceX' }   // FragranceX/FragranceNet affiliate
 };
-/* Hand-made Sovrn / network links for specific fragrances (override buyLink). */
-const SOVRN_LINKS = {
-  br540: { walmart: 'https://sovrn.co/1qvyf9r' }
-};
-/* Sovrn Commerce (VigLink) auto-affiliation key. Get it free at
-   sovrn.com/commerce, paste your site key here, and every non-Amazon link
-   starts paying you with zero per-link work. Leave '' to disable. */
-const SOVRN_KEY = '';
-/* Which retailers show as buttons, in display order. Add 'fragnet','notino',
-   'sephora' here if you want more buttons once their programs are live. */
-const BUY_RETAILERS = ['amazon','jomashop','fragbuy'];
-
-/* Build a buy link for a retailer. Amazon gets its tag appended directly; other
-   retailers use a network deep-link template if provided, otherwise the plain
-   URL (which Sovrn tracks at click time when SOVRN_KEY is set). */
-function buyLink(retailer, name, fragId){
-  if(fragId && SOVRN_LINKS[fragId]?.[retailer]) return SOVRN_LINKS[fragId][retailer];
-  const cfg=AFFILIATE[retailer];
-  if(!cfg) return `https://www.google.com/search?q=${encodeURIComponent(name)}`;
-  const url=cfg.base(name);
-  if(retailer==='amazon') return url + (cfg.tag?`&tag=${cfg.tag}`:'');
-  if(cfg.deeplink) return cfg.deeplink.replace('{url}', encodeURIComponent(url));
-  return url;
+/* Build a buy link for a given retailer. Falls back to plain search URL
+   until you insert your real IDs (so the site works on day one). */
+function buyLink(retailer, name){
+  const q=encodeURIComponent(name);
+  if(retailer==='amazon')
+    return `https://www.amazon.com/s?k=${encodeURIComponent(name+' eau de parfum')}&tag=${AFFILIATE.amazon.tag}`;
+  if(retailer==='jomashop')
+    return `https://www.jomashop.com/search?q=${q}`;     // wrap with your Rakuten deep-link generator
+  if(retailer==='fragbuy')
+    return `https://www.fragrancex.com/search/search_results?stext=${q}`; // wrap with affiliate network link
+  return `https://www.google.com/search?q=${q}`;
 }
 
 const FAM_COLOR={citrus:'--c-citrus',fresh:'--c-fresh',aromatic:'--c-aromatic',fruity:'--c-fruity',floral:'--c-floral',gourmand:'--c-gourmand',amber:'--c-amber',spicy:'--c-spicy',woody:'--c-woody',leather:'--c-leather',smoky:'--c-smoky',musky:'--c-musky',boozy:'--c-boozy',powdery:'--c-powdery'};
@@ -121,55 +91,8 @@ truffle:'woody','black tea':'aromatic',plum:'fruity',dewberry:'fruity','red berr
 aldehydes:'powdery','coconut milk':'fruity',chestnut:'gourmand','sea salt':'fresh',driftwood:'woody',
 pomegranate:'fruity',yuzu:'citrus',mahogany:'woody',blackberry:'fruity',cassis:'fruity','bitter orange':'citrus',blueberry:'fruity',civet:'musky',
 cherry:'fruity','ginger lily':'floral',meringue:'gourmand','frozen rum accord':'boozy','watery notes':'fresh','aquatic notes':'fresh','atlas cedar':'woody','haitian vetiver':'woody',elemi:'woody','black currant':'fruity','coal accord':'smoky','metal accord':'smoky','chili pepper':'spicy','jasmine bud':'floral','roman chamomile':'aromatic',citron:'citrus',cedarwood:'woody',olibanum:'smoky',gardenia:'floral',
-myrtle:'aromatic',hazelnut:'gourmand','crystal moss':'woody','coconut water':'fresh','may rose':'floral',
-agarwood:'woody',davana:'fruity',frankincense:'smoky',cocoa:'gourmand',hawthorn:'floral',peppermint:'aromatic'};
+petitgrain:'aromatic','apple blossom':'floral',myrtle:'aromatic',strawberry:'fruity',watermelon:'fruity',cypriol:'woody','green mango':'fruity',sycamore:'woody',citrus:'citrus'};
 function noteFam(n){return NOTE_FAM[n]||'musky'}
-
-/* ---------- RESEARCHED NOTE-LEVEL ACCORDS ----------
-   Family scoring tells you whether two genres get along. But perfumery is
-   really built on specific note pairings. These tables encode classic
-   complementary accords perfumers reach for again and again (synergy, +)
-   and well-documented troublemakers (clash, -). Each entry is [noteA,noteB,
-   weight,label]; we scan BOTH fragrances' full note lists and reward/penalize
-   when one supplies noteA and the other supplies noteB. This is what lets a
-   rose + a quality oud, or a vanilla + a tobacco, out-score a generic match. */
-const NOTE_SYNERGY=[
- ['rose','oud',6,'rose + oud'],['rose','agarwood',6,'rose + oud'],['oud','saffron',5,'saffron + oud'],
- ['saffron','leather',5,'saffron + leather'],['rose','patchouli',4,'rose + patchouli'],
- ['rose','sandalwood',3,'rose + sandalwood'],['vanilla','tobacco',6,'vanilla + tobacco'],
- ['honey','tobacco',5,'honey + tobacco'],['leather','tobacco',4,'leather + tobacco'],
- ['vanilla','coconut',5,'vanilla + coconut'],['vanilla','cacao',4,'vanilla + cacao'],
- ['vanilla','cocoa',4,'vanilla + cocoa'],['vanilla','coffee',4,'vanilla + coffee'],
- ['praline','coffee',4,'praline + coffee'],['almond','cherry',4,'almond + cherry'],
- ['amber','vanilla',4,'amber + vanilla'],['amber','labdanum',4,'amber + labdanum'],
- ['incense','amber',4,'incense + amber'],['frankincense','amber',4,'incense + amber'],
- ['ambroxan','amber',5,'ambroxan + amber'],['ambroxan','vanilla',3,'ambroxan + vanilla'],
- ['bergamot','vetiver',4,'bergamot + vetiver'],['grapefruit','vetiver',3,'grapefruit + vetiver'],
- ['vetiver','cedar',3,'vetiver + cedar'],['cardamom','leather',4,'cardamom + leather'],
- ['iris','leather',4,'iris + leather'],['patchouli','vanilla',4,'patchouli + vanilla'],
- ['jasmine','sandalwood',3,'jasmine + sandalwood'],['cinnamon','tonka',4,'cinnamon + tonka'],
- ['lavender','vanilla',4,'lavender + vanilla'],['lavender','tonka',3,'lavender + tonka'],
- ['pineapple','birch',5,'pineapple + birch'],['coconut','tonka',4,'coconut + tonka'],
- ['fig','coconut',3,'fig + coconut'],['rum','vanilla',4,'rum + vanilla'],['cognac','tobacco',5,'cognac + tobacco']
-];
-const NOTE_CLASH=[
- ['marine notes','tobacco',6,'aquatic vs tobacco'],['marine notes','oud',6,'aquatic vs oud'],
- ['marine notes','vanilla',4,'aquatic vs vanilla'],['sea notes','vanilla',4,'aquatic vs vanilla'],
- ['sea notes','oud',5,'aquatic vs oud'],['marine accord','oud',5,'aquatic vs oud'],
- ['sea salt','oud',4,'salt vs oud'],['seaweed','vanilla',4,'marine vs vanilla'],
- ['mint','oud',4,'mint vs oud'],['mint','leather',3,'mint vs leather'],
- ['aldehydes','tobacco',3,'aldehydes vs tobacco'],['cumin','marine notes',4,'cumin vs aquatic']
-];
-function noteAccords(a,b){
-  const aN=[...a.top,...(a.heart||[]),...a.base], bN=[...b.top,...(b.heart||[]),...b.base];
-  const hit=(t)=>(aN.includes(t[0])&&bN.includes(t[1]))||(aN.includes(t[1])&&bN.includes(t[0]));
-  let delta=0; const wins=[]; const risks=[];
-  for(const t of NOTE_SYNERGY) if(hit(t)){delta+=t[2]; wins.push(t[3]);}
-  for(const t of NOTE_CLASH)   if(hit(t)){delta-=t[2]; risks.push(t[3]);}
-  // diminishing returns: stacking five accords shouldn't dominate the score
-  delta=Math.max(-14, Math.min(delta, 15));
-  return {delta, wins:[...new Set(wins)], risks:[...new Set(risks)]};
-}
 
 /* ---------- SCORING ---------- */
 function scorePair(a,b){
@@ -183,23 +106,18 @@ function scorePair(a,b){
   const second=pairs[1] ?? best;                         // backup bridge
   const worst=pairs[pairs.length-1];                     // weakest interaction
   const avg=pairs.reduce((t,v)=>t+v,0)/pairs.length;     // overall family fit
-  const spread=best-worst;                               // how much the families disagree
 
-  /* (A) base blend: anchor on the overall average family fit (so a pair has to
-     be broadly compatible, not just have one lucky bridge), then let the
-     strongest bridge lift and the weakest interaction bite. Centered lower
-     than before so the full 0–100 range is actually used. */
-  let s = avg*0.40 + best*0.30 + second*0.12 + worst*0.18;
+  /* (A) widen the band: lead with the strongest bridge, reward a strong
+     SECOND bridge (two real connections beats one), and let the overall
+     average pull the score so generic-but-fine pairs sit lower than
+     genuinely well-matched ones. Coefficients sum to weight the top hard. */
+  let s = best*0.46 + second*0.20 + avg*0.24 + worst*0.10;
 
-  /* clash penalty: a hard incompatibility (marine vs heavy smoke) drags hard.
-     A wide internal spread (some families love each other, others clash) is a
-     "mixed signal" blend, so it loses points to clean, coherent pairs. */
-  if(worst<50) s-=(50-worst)*1.1;
-  if(spread>=25) s-=(spread-25)*0.22;
-  /* elite-bridge reward, UNCAPPED so genuine standouts pull away from the pack
-     instead of everyone piling onto the same ceiling number. Reserved for
-     near-perfect primary bridges only. */
-  if(best>=88) s+=(best-88)*0.7;
+  /* clash penalty: a hard incompatibility (marine vs heavy smoke) drags more */
+  if(worst<50) s-=(50-worst)*1.0;
+  /* small bonus only for a near-perfect primary bridge, so elite matches
+     edge upward without everything pinning to the cap */
+  if(best>=88) s+=(best-88)*0.5;
 
   /* (B) shared-note granularity: notes shared in the SAME tier (both tops,
      both bases) fuse far better than notes scattered across tiers. Weight
@@ -212,48 +130,27 @@ function scorePair(a,b){
   const aN=[...a.top,...(a.heart||[]),...a.base], bN=[...b.top,...(b.heart||[]),...b.base];
   const shared=aN.filter(n=>bN.includes(n));
   const crossShared=Math.max(0, shared.length-(topS+heartS+baseS)); // shared but different tiers
-  s += Math.min(baseS*4 + heartS*3 + topS*2 + crossShared*1, 11);
+  s += Math.min(baseS*4 + heartS*3 + topS*2 + crossShared*1, 12);
 
-  /* (C) tie-breakers / context ---------------------------------------- */
-  // season alignment: same season window blends more believably; opposite
-  // seasons (e.g. a Summer aquatic + a Winter tobacco) lose a touch
+  /* (C) tie-breakers --------------------------------------------------- */
+  // season alignment: same season window blends more believably
   if(a.season===b.season && a.season!=='Year-round') s+=2.5;
-  else if(a.season==='Year-round' || b.season==='Year-round') s+=0.5;
-  else s-=2.5;
+  else if(a.season==='Year-round' || b.season==='Year-round') s+=1;
   // gourmand/amber pairs are the most forgiving to layer in practice
   const sweet=f=>f.fam.some(x=>['gourmand','amber','boozy'].includes(x));
-  if(sweet(a)&&sweet(b)) s+=1.5;
-  // two very loud heavy fragrances can overwhelm — nudge down
+  if(sweet(a)&&sweet(b)) s+=2;
+  // two very loud heavy fragrances can overwhelm — slight nudge down
   const heavyCount=f=>f.fam.filter(x=>['smoky','leather','boozy','amber','gourmand'].includes(x)).length;
-  if(heavyCount(a)>=2 && heavyCount(b)>=2) s-=2.5;
+  if(heavyCount(a)>=2 && heavyCount(b)>=2) s-=2;
 
-  /* (C2) researched note accords: the real perfumery layer — rewards classic
-     complementary note pairings (rose+oud, vanilla+tobacco, saffron+leather…)
-     and penalizes known clashes (aquatic+oud, mint+oud…). This is the biggest
-     driver of "why does THIS specific pair work" and adds real variation. */
-  const acc=noteAccords(a,b);
-  s += acc.delta;
-
-  /* (D) recenter + spread: the affinity matrix is generous, so the raw field
-     clusters high (~84). Recenter that typical pair down to the low-70s and
-     widen the gaps so the full range is actually used and pairs are rankable. */
-  const RAW_CENTER=84, TARGET=72, GAIN=1.25;
-  s = TARGET + (s-RAW_CENTER)*GAIN;
-
-  /* (E) soft knee: above the knee we compress, so elite pairs still rank
-     AGAINST EACH OTHER (a 91 vs a 96 stays meaningful) instead of every great
-     match flattening into a wall of 99s. */
-  const KNEE=86;
-  if(s>KNEE) s = KNEE + (s-KNEE)*0.5;
-
-  /* small deterministic offset from average fit and the gap between the top two
-     bridges gives nearly every distinct pair its own number, so the ranking is
-     meaningful for research. Pure math on the same inputs → stable scores. */
-  s = s + (avg-70)*0.07 + (best-second)*0.05;
-
-  s=Math.round(Math.max(25,Math.min(s,99)));
-  if(cur) s=cur.s;                                       // curated classics override
-  return {score:s,shared,cur,acc};
+  /* (A) final band: computed scores span ~55–88; curated classics (88–96)
+     sit clearly above. A tiny deterministic offset from the average family
+     fit breaks visual ties so a screen full of identical numbers can't happen
+     while keeping scores stable (same pair always = same score). */
+  s = s + (avg-70)*0.04;
+  s=Math.round(Math.max(40,Math.min(s,88)));
+  if(cur) s=cur.s;                                       // curated classics override (88–96)
+  return {score:s,shared,cur};
 }
 function whyText(a,b,r){
   if(r.cur) return r.cur.why;
@@ -265,8 +162,6 @@ function whyText(a,b,r){
     ? `Both lean <b>${f1}</b>, so they amplify rather than fight \u2014 expect a louder, deeper version of a profile you already like.`
     : `The core bridge is <b>${f1} \u00d7 ${f2}</b> \u2014 a pairing perfumers blend inside single compositions all the time, so your skin does the lab\u2019s job.`;
   if(r.shared.length) t+=` They also share <b>${r.shared.slice(0,3).join(', ')}</b>, fusing the two into one scent instead of two competing ones.`;
-  if(r.acc&&r.acc.wins.length) t+=` Classic accord at play: <b>${r.acc.wins.slice(0,2).join('</b>, <b>')}</b> \u2014 a pairing perfumers lean on, which is what pushes this match up.`;
-  if(r.acc&&r.acc.risks.length) t+=` Watch out: <b>${r.acc.risks[0]}</b> can fight, so go light on the second spray.`;
   return t;
 }
 function howText(a,b){
@@ -275,4 +170,4 @@ function howText(a,b){
   const first=w(a)>=w(b)?a:b, second=first===a?b:a;
   return `Apply <b>${first.name}</b> first (heavier base), wait ~30 seconds, then 1\u20132 sprays of <b>${second.name}</b> over or beside it. Start 2:2 and adjust.`;
 }
-if(typeof module!=='undefined') module.exports={scorePair,whyText,howText,noteFam,FAM_COLOR,buyLink,AFFILIATE,SOVRN_KEY,SOVRN_LINKS,BUY_RETAILERS,CURATED};
+if(typeof module!=='undefined') module.exports={scorePair,whyText,howText,noteFam,FAM_COLOR,buyLink,AFFILIATE,CURATED};

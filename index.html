@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta name="google-site-verification" content="g1Y5lu-7CU9ReOiO6NJQtxETucuL1fxvF18AQA10qIk" />
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>The Layering Lab — Fragrance Layering Combinations That Actually Work</title>
@@ -138,7 +137,7 @@ footer a{color:var(--amber)}
 
   <div id="findMode">
   <div class="picker">
-    <input id="q" class="search" type="text" placeholder="Search 244 fragrances — try “Khamrah” or “Baccarat”" autocomplete="off" aria-label="Search fragrances">
+    <input id="q" class="search" type="text" placeholder="Search 280+ fragrances — try “Khamrah” or “Baccarat”" autocomplete="off" aria-label="Search fragrances">
     <div id="dd" class="dropdown" role="listbox"></div>
     <p class="hint">Tip: tap the box to browse all, or start typing a name or house.</p>
   </div>
@@ -152,7 +151,6 @@ footer a{color:var(--amber)}
       <div class="base-notes" id="baseNotes"></div>
       <button class="swap" id="swapBtn">Change fragrance</button>
     </div>
-    <div id="baseBuy"></div>
     <div class="results-h">
       <h3>Best pairings</h3>
       <span>Tap a pairing to see the blended pyramid</span>
@@ -192,23 +190,11 @@ footer a{color:var(--amber)}
     <a href="baccarat-rouge-540-layering.html">Baccarat Rouge 540</a> ·
     <a href="le-male-elixir-layering.html">Le Male Elixir</a> ·
     <a href="sauvage-edp-layering.html">Dior Sauvage</a></p>
-  <p>Disclosure: as an Amazon Associate and affiliate, this site may earn from qualifying purchases. “Check price” links never affect the scores or rankings. · <a href="privacy.html">Privacy Policy</a></p>
+  <p>Disclosure: as an Amazon Associate and affiliate, this site may earn from qualifying purchases. "Check price" links never affect the scores or rankings. · <a href="privacy.html">Privacy Policy</a></p>
 </footer>
 
 <script src="fragrances.js"></script>
 <script src="engine.js"></script>
-<script>
-/* Sovrn / VigLink auto-affiliation. Stays completely inert until you set
-   SOVRN_KEY in engine.js. Once set, it converts every outbound retailer link
-   (everything except Amazon, which uses its own tag) into a tracked,
-   commission-earning link at click time — including links added dynamically. */
-if(typeof SOVRN_KEY!=='undefined' && SOVRN_KEY){
-  window.vglnk={key:SOVRN_KEY};
-  (function(d,t){var s=d.createElement(t);s.type='text/javascript';s.async=true;
-    s.src='//cdn.viglink.com/api/vglnk.js';
-    var r=d.getElementsByTagName(t)[0];r.parentNode.insertBefore(s,r);}(document,'script'));
-}
-</script>
 <script>
 const $=s=>document.querySelector(s);
 const HOUSE_ALIAS={'yves saint laurent':'ysl','jean paul gaultier':'jpg jean paul gaultier gaultier','maison francis kurkdjian':'mfk kurkdjian','dolce & gabbana':'dg dolce gabbana','tom ford':'tf tom ford','parfums de marly':'pdm marly','giorgio armani':'armani','louis vuitton':'lv louis vuitton','viktor & rolf':'viktor rolf vr','carolina herrera':'ch carolina herrera','paco rabanne':'paco rabanne','maison margiela':'margiela replica'};
@@ -245,11 +231,9 @@ q.addEventListener('keydown',e=>{
 });
 document.addEventListener('click',e=>{if(!e.target.closest('.picker'))dd.classList.remove('open')});
 
-function buyButtons(name, fragId){
-  const extra=fragId&&SOVRN_LINKS[fragId]?Object.keys(SOVRN_LINKS[fragId]).filter(r=>!BUY_RETAILERS.includes(r)):[];
-  const retailers=[...BUY_RETAILERS,...extra];
-  const btn=(ret)=>'<a class="buy" href="'+buyLink(ret,name,fragId)+'" target="_blank" rel="noopener sponsored">Check price <small>'+AFFILIATE[ret].label+' ↗</small></a>';
-  return '<div class="buy-row"><div class="buy-lbl">Where to buy '+name+'</div><div class="buy-btns">'+retailers.map(btn).join('')+'</div></div>';
+function buyButtons(name){
+  const btn=(ret)=>'<a class="buy" href="'+buyLink(ret,name)+'" target="_blank" rel="noopener sponsored">Check price <small>'+AFFILIATE[ret].label+' ↗</small></a>';
+  return '<div class="buy-row"><div class="buy-lbl">Where to buy '+name+'</div><div class="buy-btns">'+btn('amazon')+btn('jomashop')+btn('fragbuy')+'</div></div>';
 }
 function pyramidHTML(a,b){
   const tier=(la,lb,label)=>{
@@ -267,7 +251,6 @@ function select(id){
   $('#baseName').textContent=current.name;
   $('#baseHouse').textContent=current.house+' · '+current.vibe;
   $('#baseNotes').innerHTML=[...current.top,...(current.heart||[]),...current.base].slice(0,7).map(n=>'<span class="chip">'+n+'</span>').join('');
-  $('#baseBuy').innerHTML=SOVRN_LINKS[current.id]?buyButtons(current.name,current.id):'';
   const ranked=FRAGS.filter(f=>f.id!==id).map(f=>({f,r:scorePair(current,f)})).sort((a,b)=>b.r.score-a.r.score).slice(0,6);
   results.innerHTML='';
   ranked.forEach(({f,r},idx)=>{
@@ -344,7 +327,7 @@ function renderCompare(){
   if(!cmpA||!cmpB){box.innerHTML='';return}
   if(cmpA.id===cmpB.id){box.innerHTML='<p class="compare-intro">Pick two <em>different</em> fragrances to compare.</p>';return}
   const r=scorePair(cmpA,cmpB);
-  const verdict = r.score>=88?'Exceptional match':r.score>=78?'Strong match':r.score>=66?'Solid, ratio-sensitive':r.score>=52?'Workable with care':'Risky — likely clashes';
+  const verdict = r.score>=88?'Exceptional match':r.score>=80?'Strong match':r.score>=70?'Solid, ratio-sensitive':r.score>=60?'Workable with care':'Risky — likely clashes';
   box.innerHTML=
     '<div class="pair open" style="border-color:var(--amber)">'+
       '<div class="pair-top" style="cursor:default">'+
