@@ -104,6 +104,22 @@ h1 em{font-style:normal;color:var(--amber)}
 .fb-btn.voted-yes{background:#3E6B52;color:#fff;border-color:#3E6B52}
 .fb-btn.voted-no{background:#8C4A3A;color:#fff;border-color:#8C4A3A}
 .fb-count{font-size:12px;color:var(--ink-soft);margin-left:4px}
+.fb-btn.voted-yes .fb-count,.fb-btn.voted-no .fb-count{color:rgba(255,255,255,.8)}
+.comments-section{margin-top:14px;padding-top:12px;border-top:1px dashed var(--line)}
+.comments-title{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:10px}
+.comment-item{background:#F5F6F0;border-radius:8px;padding:10px 12px;margin-bottom:8px}
+.comment-meta{font-size:12px;color:var(--ink-soft);margin-bottom:4px}
+.comment-meta b{color:var(--ink)}
+.comment-body{font-size:14px;color:var(--ink);line-height:1.5}
+.comment-form{display:flex;flex-direction:column;gap:8px;margin-top:10px}
+.comment-inputs{display:flex;gap:8px;flex-wrap:wrap}
+.comment-name{flex:0 0 130px;padding:8px 10px;font:inherit;font-size:13px;border:1.5px solid var(--line);border-radius:8px;background:var(--card);color:var(--ink);outline:none}
+.comment-name:focus{border-color:var(--amber)}
+.comment-text{flex:1;min-width:160px;padding:8px 10px;font:inherit;font-size:13px;border:1.5px solid var(--line);border-radius:8px;background:var(--card);color:var(--ink);outline:none;resize:none}
+.comment-text:focus{border-color:var(--amber)}
+.comment-submit{align-self:flex-end;padding:8px 16px;background:var(--ink);color:#EDEFE8;font:inherit;font-size:13px;font-weight:700;border:none;border-radius:99px;cursor:pointer}
+.comment-submit:hover{background:var(--amber)}
+.no-comments{font-size:13px;color:var(--ink-soft);font-style:italic}
 .buy-row{margin-top:16px}
 .buy-row .buy-lbl{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:8px}
 .buy-btns{display:flex;flex-wrap:wrap;gap:8px}
@@ -315,39 +331,50 @@ function select(id){
 $('#swapBtn').addEventListener('click',()=>{q.value='';q.focus();window.scrollTo({top:0,behavior:'smooth'})});
 
 /* ============================================================
-   COMMUNITY FEEDBACK SYSTEM (Supabase)
-   Replace SUPABASE_URL and SUPABASE_ANON_KEY after setup.
-   See SUPABASE-SETUP.md for exact instructions.
+   COMMUNITY FEEDBACK + COMMENTS (Supabase)
    ============================================================ */
 const SUPABASE_URL='https://fbozcmithxeoiypzrveq.supabase.co';
 const SUPABASE_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZib3pjbWl0aHhlb2l5cHpydmVxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODE1NzYxNzQsImV4cCI6MjA5NzE1MjE3NH0.ywoNMyki2wUTr1dl13Rbxfvh5svqvzfm0TscrtJjPE8';
-const SB_ENABLED=SUPABASE_URL!=='YOUR_SUPABASE_URL';
+const SB_ENABLED=true;
+const SB_HEADERS={'apikey':SUPABASE_KEY,'Authorization':'Bearer '+SUPABASE_KEY,'Content-Type':'application/json'};
 
-// localStorage to prevent repeat votes
-function getVoted(pairKey){return localStorage.getItem('vote_'+pairKey)}
-function setVoted(pairKey,v){localStorage.setItem('vote_'+pairKey,v)}
+function getVoted(k){return localStorage.getItem('vote_'+k)}
+function setVoted(k,v){localStorage.setItem('vote_'+k,v)}
 
-async function fetchRatings(pairKey){
+async function fetchRatings(key){
   if(!SB_ENABLED) return null;
   try{
-    const r=await fetch(SUPABASE_URL+'/rest/v1/ratings?pair_key=eq.'+encodeURIComponent(pairKey)+'&select=yes_count,no_count',{
-      headers:{'apikey':SUPABASE_KEY,'Authorization':'Bearer '+SUPABASE_KEY}
-    });
-    const d=await r.json();
-    return d[0]||null;
+    const r=await fetch(SUPABASE_URL+'/rest/v1/ratings?pair_key=eq.'+encodeURIComponent(key)+'&select=yes_count,no_count',{headers:SB_HEADERS});
+    const d=await r.json(); return d[0]||null;
   }catch(e){return null}
 }
 
-async function vote(pairKey,isYes){
-  if(!SB_ENABLED) return;
+async function castVote(key,isYes){
+  await fetch(SUPABASE_URL+'/rest/v1/rpc/cast_vote',{method:'POST',headers:SB_HEADERS,body:JSON.stringify({p_pair_key:key,p_is_yes:isYes})});
+}
+
+async function changeVote(key,oldVote,newVote){
+  await fetch(SUPABASE_URL+'/rest/v1/rpc/change_vote',{method:'POST',headers:SB_HEADERS,body:JSON.stringify({p_pair_key:key,p_old_vote:oldVote,p_new_vote:newVote})});
+}
+
+async function fetchComments(key){
+  if(!SB_ENABLED) return [];
   try{
-    // upsert: increment yes or no count using RPC
-    await fetch(SUPABASE_URL+'/rest/v1/rpc/cast_vote',{
-      method:'POST',
-      headers:{'apikey':SUPABASE_KEY,'Authorization':'Bearer '+SUPABASE_KEY,'Content-Type':'application/json'},
-      body:JSON.stringify({p_pair_key:pairKey,p_is_yes:isYes})
-    });
-  }catch(e){console.log('vote error',e)}
+    const r=await fetch(SUPABASE_URL+'/rest/v1/comments?pair_key=eq.'+encodeURIComponent(key)+'&select=username,body,created_at&order=created_at.asc',{headers:SB_HEADERS});
+    return await r.json();
+  }catch(e){return []}
+}
+
+async function postComment(key,username,body){
+  await fetch(SUPABASE_URL+'/rest/v1/comments',{method:'POST',headers:{...SB_HEADERS,'Prefer':'return=minimal'},body:JSON.stringify({pair_key:key,username:username||'Anonymous',body})});
+}
+
+function timeAgo(ts){
+  const s=Math.floor((Date.now()-new Date(ts))/1000);
+  if(s<60) return 'just now';
+  if(s<3600) return Math.floor(s/60)+'m ago';
+  if(s<86400) return Math.floor(s/3600)+'h ago';
+  return Math.floor(s/86400)+'d ago';
 }
 
 function feedbackHTML(idA,idB){
@@ -358,40 +385,105 @@ function feedbackHTML(idA,idB){
       <button class="fb-btn fb-yes" data-key="${key}">👍 Works great <span class="fb-count"></span></button>
       <button class="fb-btn fb-no" data-key="${key}">👎 Didn't work <span class="fb-count"></span></button>
     </div>
+    <div class="comments-section">
+      <div class="comments-title">Community notes</div>
+      <div class="comments-list"></div>
+      <div class="comment-form">
+        <div class="comment-inputs">
+          <input class="comment-name" type="text" placeholder="Your name (optional)" maxlength="30">
+          <textarea class="comment-text" placeholder="Share your experience with this combo..." rows="2" maxlength="300"></textarea>
+        </div>
+        <button class="comment-submit">Post note</button>
+      </div>
+    </div>
   </div>`;
 }
 
 async function initFeedback(card,idA,idB){
   const key=[idA,idB].sort().join('_');
-  const voted=getVoted(key);
-  const data=await fetchRatings(key);
   const yesBtn=card.querySelector('.fb-yes');
   const noBtn=card.querySelector('.fb-no');
+  const commentsList=card.querySelector('.comments-list');
+  const nameInput=card.querySelector('.comment-name');
+  const textInput=card.querySelector('.comment-text');
+  const submitBtn=card.querySelector('.comment-submit');
   if(!yesBtn||!noBtn) return;
-  // show counts if we have data
-  if(data){
-    const total=data.yes_count+data.no_count;
-    if(total>0){
-      yesBtn.querySelector('.fb-count').textContent=data.yes_count>0?'('+data.yes_count+')':'';
-      noBtn.querySelector('.fb-count').textContent=data.no_count>0?'('+data.no_count+')':'';
+
+  /* --- load ratings --- */
+  const data=await fetchRatings(key);
+  const updateCounts=(yesN,noN)=>{
+    yesBtn.querySelector('.fb-count').textContent=yesN>0?'('+yesN+')':'';
+    noBtn.querySelector('.fb-count').textContent=noN>0?'('+noN+')':'';
+  };
+  if(data) updateCounts(data.yes_count,data.no_count);
+
+  /* --- restore previous vote --- */
+  const prevVote=getVoted(key);
+  if(prevVote==='yes'){yesBtn.classList.add('voted-yes')}
+  if(prevVote==='no'){noBtn.classList.add('voted-no')}
+
+  /* --- vote handler with change support --- */
+  const handleVote=async(btn,isYes)=>{
+    const current=getVoted(key);
+    const wasYes=current==='yes';
+    const wasNo=current==='no';
+    const alreadyThisVote=(isYes&&wasYes)||(!isYes&&wasNo);
+
+    // clear visual state
+    yesBtn.classList.remove('voted-yes');
+    noBtn.classList.remove('voted-no');
+
+    if(alreadyThisVote){
+      // clicking same vote = undo
+      setVoted(key,'');
+      await changeVote(key,isYes,!isYes); // this is a hack — better: add undo_vote RPC
+      // just refetch
+      const d=await fetchRatings(key);
+      if(d) updateCounts(d.yes_count,d.no_count);
+      return;
     }
-  }
-  // restore voted state
-  if(voted==='yes') yesBtn.classList.add('voted-yes');
-  if(voted==='no') noBtn.classList.add('voted-no');
-  // attach vote handlers
-  [yesBtn,noBtn].forEach(btn=>{
-    btn.addEventListener('click',async()=>{
-      if(getVoted(key)) return; // already voted
-      const isYes=btn.classList.contains('fb-yes');
-      setVoted(key,isYes?'yes':'no');
-      btn.classList.add(isYes?'voted-yes':'voted-no');
-      await vote(key,isYes);
-      // optimistically update count
-      const countEl=btn.querySelector('.fb-count');
-      const current=parseInt(countEl.textContent.replace(/[()]/g,''))||0;
-      countEl.textContent='('+(current+1)+')';
-    });
+
+    // new vote or changed vote
+    if(current){
+      await changeVote(key,wasYes,isYes);
+    } else {
+      await castVote(key,isYes);
+    }
+    setVoted(key,isYes?'yes':'no');
+    btn.classList.add(isYes?'voted-yes':'voted-no');
+    const d=await fetchRatings(key);
+    if(d) updateCounts(d.yes_count,d.no_count);
+  };
+
+  yesBtn.addEventListener('click',()=>handleVote(yesBtn,true));
+  noBtn.addEventListener('click',()=>handleVote(noBtn,false));
+
+  /* --- load comments --- */
+  const renderComments=async()=>{
+    const comments=await fetchComments(key);
+    if(!comments.length){
+      commentsList.innerHTML='<p class="no-comments">No notes yet. Be the first to share your experience.</p>';
+    } else {
+      commentsList.innerHTML=comments.map(c=>`
+        <div class="comment-item">
+          <div class="comment-meta"><b>${c.username||'Anonymous'}</b> · ${timeAgo(c.created_at)}</div>
+          <div class="comment-body">${c.body.replace(/</g,'&lt;')}</div>
+        </div>`).join('');
+    }
+  };
+  renderComments();
+
+  /* --- submit comment --- */
+  submitBtn.addEventListener('click',async()=>{
+    const body=textInput.value.trim();
+    if(!body) return;
+    submitBtn.textContent='Posting...';
+    submitBtn.disabled=true;
+    await postComment(key,nameInput.value.trim(),body);
+    textInput.value='';
+    submitBtn.textContent='Post note';
+    submitBtn.disabled=false;
+    renderComments();
   });
 }
 
