@@ -432,6 +432,100 @@ const FRAGS=[
 {id:'nasoshaman',name:'Absinth',house:'Nasomatto',fam:['aromatic','woody','spicy'],top:['wormwood','anise'],heart:['vetiver','incense'],base:['musk','amber','woods'],season:'Fall–Winter',vibe:'absinthe green bitter'},
 {id:'nasogrampa',name:'Nuda',house:'Nasomatto',fam:['musky','floral','fresh'],top:['aldehydes','bergamot'],heart:['rose','lily','iris'],base:['white musk','sandalwood'],season:'Year-round',vibe:'bare clean skin musk'},
 {id:'nasotamahine',name:'Tahitian',house:'Nasomatto',fam:['floral','fruity','musky'],top:['coconut','tiare'],heart:['jasmine','ylang'],base:['musk','sandalwood','vanilla'],season:'Summer',vibe:'tropical island floral'},
-{id:'nasohura',name:'Gatto',house:'Nasomatto',fam:['musky','woody','amber'],top:['aldehydes','bergamot'],heart:['iris','rose'],base:['musk','amber','sandalwood'],season:'Year-round',vibe:'soft powdery animal musk'}
+{id:'nasohura',name:'Gatto',house:'Nasomatto',fam:['musky','woody','amber'],top:['aldehydes','bergamot'],heart:['iris','rose'],base:['musk','amber','sandalwood'],season:'Year-round',vibe:'soft powdery animal musk'},
+
+/* ---- Aventus flankers ---- */
+{id:'aventusabsolu',name:'Aventus Absolu',house:'Creed',fam:['fruity','smoky','amber'],top:['pineapple','bergamot','blackcurrant'],heart:['birch','patchouli','jasmine'],base:['musk','amber','vanilla'],season:'Fall–Winter',vibe:'warmer denser Aventus'},
+{id:'aventusparfum',name:'Aventus Parfum',house:'Creed',fam:['fruity','smoky','woody'],top:['pineapple','bergamot'],heart:['birch','rose'],base:['musk','oakmoss','sandalwood'],season:'Year-round',vibe:'smoother modern Aventus'},
+{id:'millesimeimperialabsolu',name:'Millesime Imperial Absolu',house:'Creed',fam:['fresh','citrus','amber'],top:['bergamot','lemon','melon'],heart:['iris','mandarin'],base:['amber','musk','sandalwood'],season:'Spring–Summer',vibe:'richer deeper Millesime'},
+
+/* ---- Dior flankers ---- */
+{id:'sauvageeauforte',name:'Sauvage Eau Forte',house:'Dior',fam:['fresh','citrus','aromatic'],top:['bergamot','lemon','pepper'],heart:['lavender','ambroxan'],base:['cedar','vetiver'],season:'Spring–Summer',vibe:'concentrated fresh Sauvage'},
+{id:'missdiorrose',name:'Miss Dior Rose N\'Roses',house:'Dior',fam:['floral','citrus','musky'],top:['mandarin','bergamot'],heart:['rose','peony'],base:['white musk','cedar'],season:'Spring–Summer',vibe:'playful fresh rose'},
+{id:'jadoreabsolu',name:'J\'adore Absolu',house:'Dior',fam:['floral','amber','musky'],top:['ylang','neroli'],heart:['jasmine','rose','tuberose'],base:['amber','musk','sandalwood'],season:'Fall–Winter',vibe:'intense golden floral'},
+{id:'diorhommeeau',name:'Dior Homme Eau',house:'Dior',fam:['citrus','aromatic','fresh'],top:['bergamot','aldehydes'],heart:['iris','lavender'],base:['vetiver','cedar','musk'],season:'Spring–Summer',vibe:'clean fresh Dior Homme'},
+{id:'poisongirl',name:'Poison Girl',house:'Dior',fam:['floral','gourmand','amber'],top:['bitter orange','rose'],heart:['grasse rose'],base:['vanilla','sandalwood','amber'],season:'Fall–Winter',vibe:'sweet bitter orange rose'},
+{id:'missdiorcherie',name:'Miss Dior Chérie',house:'Dior',fam:['floral','fruity','woody'],top:['strawberry','caramel popcorn'],heart:['violet','jasmine'],base:['patchouli','musk'],season:'Year-round',vibe:'sweet popcorn violet'},
+
+/* ---- Chanel flankers ---- */
+{id:'chanelbleudt',name:'Bleu de Chanel EDT',house:'Chanel',fam:['citrus','aromatic','woody'],top:['grapefruit','lemon','mint'],heart:['ginger','nutmeg','jasmine'],base:['cedar','sandalwood','patchouli'],season:'Year-round',vibe:'original fresh Bleu'},
+{id:'chanelbleuexclusif',name:'Bleu de Chanel L\'Exclusif',house:'Chanel',fam:['amber','woody','spicy'],top:['bergamot','grapefruit'],heart:['cardamom','nutmeg'],base:['sandalwood','amber','labdanum'],season:'Fall–Winter',vibe:'dark amber elevated Bleu'},
+{id:'chanelcoco',name:'Coco',house:'Chanel',fam:['amber','spicy','floral'],top:['mandarin','coriander','peach'],heart:['rose','jasmine','clove'],base:['amber','vanilla','sandalwood'],season:'Fall–Winter',vibe:'vintage spiced oriental'},
+{id:'chanelchanceeaueau',name:'Chance Eau Fraiche',house:'Chanel',fam:['citrus','fresh','musky'],top:['lemon','citron','water hyacinth'],heart:['jasmine','teak wood'],base:['amber','white musk','cedar'],season:'Spring–Summer',vibe:'lightest freshest Chance'},
+{id:'chanelchanceeauvive',name:'Chance Eau Vive',house:'Chanel',fam:['citrus','floral','musky'],top:['grapefruit','blood orange'],heart:['jasmine','water jasmine'],base:['amber','musk'],season:'Spring–Summer',vibe:'sparkling citrus Chance'},
+{id:'chanel19',name:'No. 19',house:'Chanel',fam:['floral','woody','aromatic'],top:['bergamot','neroli','aldehydes'],heart:['iris','rose','lily'],base:['vetiver','oakmoss','sandalwood'],season:'Spring–Fall',vibe:'green iris powerhouse'},
+{id:'chaneln5leauedp',name:'No. 5 L\'Eau',house:'Chanel',fam:['floral','citrus','musky'],top:['lemon','bergamot','mandarin'],heart:['jasmine','rose'],base:['white musk','cedar'],season:'Spring–Summer',vibe:'lighter modern No. 5'},
+{id:'chanelalurehommeedp',name:'Allure Homme Edition Blanche',house:'Chanel',fam:['citrus','woody','fresh'],top:['bergamot','lemon'],heart:['cedar','white musk'],base:['vetiver','sandalwood'],season:'Year-round',vibe:'clean white citrus wood'},
+
+/* ---- Versace flankers ---- */
+{id:'versaceerosedp',name:'Eros EDT',house:'Versace',fam:['fresh','gourmand','aromatic'],top:['mint','green apple','lemon'],heart:['tonka','geranium','ambrette'],base:['vanilla','vetiver','oakmoss'],season:'Year-round',vibe:'original minty Eros'},
+{id:'versacemanpour',name:'Man Eau Fraiche',house:'Versace',fam:['fresh','citrus','woody'],top:['lemon','cedar leaf','water'],heart:['rosewood','tarragon'],base:['musk','amber','sycamore'],season:'Spring–Summer',vibe:'clean aquatic fresh'},
+{id:'versacebluejar',name:'Blue Jeans',house:'Versace',fam:['aromatic','citrus','fresh'],top:['bergamot','lavender','lemon'],heart:['rose','geranium'],base:['sandalwood','musk','amber'],season:'Year-round',vibe:'90s classic aromatic'},
+{id:'versaceyellow',name:'Yellow Diamond',house:'Versace',fam:['fruity','floral','musky'],top:['yuzu','lemon','pear'],heart:['freesia','anemone','water lily'],base:['musk','amber','guaiac'],season:'Spring–Summer',vibe:'sparkling fruity diamond'},
+
+/* ---- Paco Rabanne flankers ---- */
+{id:'invictuslegend',name:'Invictus Legend',house:'Paco Rabanne',fam:['woody','fresh','amber'],top:['bergamot','grapefruit'],heart:['laurel','vetiver'],base:['amber','sandalwood','musk'],season:'Fall–Winter',vibe:'legendary dark Invictus'},
+{id:'1millionlucky',name:'1 Million Lucky',house:'Paco Rabanne',fam:['fruity','woody','amber'],top:['plum','hazelnut'],heart:['grapefruit','clary sage'],base:['leather','patchouli','amber'],season:'Fall–Winter',vibe:'lucky plum-hazelnut'},
+{id:'1millionparfum',name:'1 Million Parfum',house:'Paco Rabanne',fam:['spicy','leather','amber'],top:['cinnamon','blood orange'],heart:['leather','myrrh'],base:['amber','patchouli','tonka'],season:'Fall–Winter',vibe:'intense spiced million'},
+{id:'1millionelixir',name:'1 Million Elixir',house:'Paco Rabanne',fam:['gourmand','amber','spicy'],top:['grapefruit','hazelnut'],heart:['cinnamon','coffee'],base:['amber','leather','vanilla'],season:'Winter',vibe:'darkest sweetest million'},
+{id:'olympeaintense',name:'Olympéa Intense',house:'Paco Rabanne',fam:['floral','amber','musky'],top:['ginger','pink pepper'],heart:['jasmine','salted vanilla'],base:['sandalwood','amber','cashmere'],season:'Fall–Winter',vibe:'intense salted amber femme'},
+{id:'olympeablossom',name:'Olympéa Blossom',house:'Paco Rabanne',fam:['floral','fruity','musky'],top:['pear','green tea'],heart:['peach blossom','cassia'],base:['white musk','sandalwood'],season:'Spring–Summer',vibe:'fresh blossom Olympéa'},
+{id:'phantomEDT',name:'Phantom EDT',house:'Paco Rabanne',fam:['aromatic','fresh','woody'],top:['lemon','lavender'],heart:['vanilla','apple'],base:['vetiver','musks'],season:'Year-round',vibe:'lighter original Phantom'},
+
+/* ---- JPG flankers ---- */
+{id:'lemalesummerEDT',name:'Le Male Summer EDT',house:'Jean Paul Gaultier',fam:['fresh','aromatic','citrus'],top:['bergamot','lemon','mint'],heart:['lavender'],base:['vanilla','musk'],season:'Summer',vibe:'fresh summer Le Male'},
+{id:'ultramaleedt',name:'Ultra Male EDT',house:'Jean Paul Gaultier',fam:['fruity','gourmand','aromatic'],top:['pear','mint','bergamot'],heart:['lavender','cinnamon'],base:['vanilla','amber','tonka'],season:'Fall–Winter',vibe:'original juicy pear-vanilla'},
+{id:'lebeauparfum2',name:'Le Beau Parfum',house:'Jean Paul Gaultier',fam:['woody','fresh','aromatic'],top:['bergamot','cardamom'],heart:['vetiver','cedar'],base:['woods','tonka','amber'],season:'Year-round',vibe:'deeper Le Beau wood'},
+{id:'classiqueparfum',name:'Classique Essence de Parfum',house:'Jean Paul Gaultier',fam:['floral','gourmand','amber'],top:['orange blossom','bergamot'],heart:['rose','jasmine'],base:['vanilla','sandalwood','amber'],season:'Fall–Winter',vibe:'richer deeper Classique'},
+
+/* ---- Armani flankers ---- */
+{id:'acquadigioBlu',name:'Acqua di Giò Eau de Toilette',house:'Giorgio Armani',fam:['fresh','citrus','aromatic'],top:['bergamot','neroli','tangerine'],heart:['rosemary','cedar','jasmine'],base:['musk','cedar','amber'],season:'Spring–Summer',vibe:'original iconic aquatic'},
+{id:'armanicodeedt',name:'Armani Code EDT',house:'Giorgio Armani',fam:['aromatic','citrus','woody'],top:['bergamot','lemon'],heart:['star anise','olive blossom'],base:['guaiac','leather','tonka'],season:'Year-round',vibe:'original anise Code'},
+{id:'siparfum',name:'Si Passione',house:'Giorgio Armani',fam:['floral','fruity','amber'],top:['raspberry','bergamot'],heart:['rose','jasmine','peony'],base:['patchouli','vanilla','amber'],season:'Year-round',vibe:'passionate fruity rose Si'},
+{id:'sirose',name:'Si Rose Signature',house:'Giorgio Armani',fam:['floral','musky','fresh'],top:['bergamot','aldehydes'],heart:['rose','jasmine'],base:['musk','sandalwood'],season:'Spring–Summer',vibe:'clean rosy Si'},
+
+/* ---- YSL flankers ---- */
+{id:'yslmyslfextrait',name:'MYSLF Extrait',house:'Yves Saint Laurent',fam:['amber','woody','floral'],top:['bergamot','neroli'],heart:['orange blossom','vanilla'],base:['ambrette','patchouli','amber'],season:'Winter',vibe:'most intense MYSLF'},
+{id:'yslyparfumintense',name:'Y Eau de Parfum Intense',house:'Yves Saint Laurent',fam:['aromatic','spicy','amber'],top:['bergamot','ginger'],heart:['lavender','sage'],base:['cedar','amberwood','tonka'],season:'Fall–Winter',vibe:'spicier deeper Y'},
+{id:'ysllibreparfum',name:'Libre Le Parfum',house:'Yves Saint Laurent',fam:['floral','amber','gourmand'],top:['lavender','bergamot'],heart:['orange blossom','jasmine'],base:['tonka','vanilla','cedar'],season:'Fall–Winter',vibe:'deepest most intense Libre'},
+{id:'yslblackopiumneon2',name:'Black Opium Neon',house:'Yves Saint Laurent',fam:['gourmand','floral','fresh'],top:['coffee','pink pepper'],heart:['orange blossom','jasmine'],base:['vanilla','patchouli','white musk'],season:'Year-round',vibe:'fresher electric Black Opium'},
+{id:'ysllhommeledewy',name:'L\'Homme Ultime',house:'Yves Saint Laurent',fam:['woody','spicy','amber'],top:['bergamot','cardamom'],heart:['geranium','iris'],base:['cedar','amber','sandalwood'],season:'Year-round',vibe:'ultimate polished L\'Homme'},
+
+/* ---- Tom Ford flankers ---- */
+{id:'tfblackorchidparfum',name:'Black Orchid Parfum',house:'Tom Ford',fam:['floral','smoky','amber'],top:['black truffle','bergamot'],heart:['orchid','black dahlia'],base:['patchouli','incense','sandalwood'],season:'Winter',vibe:'darkest most intense Black Orchid'},
+{id:'tfsoleilneige',name:'Soleil Neige',house:'Tom Ford',fam:['musky','floral','woody'],top:['aldehydes','bergamot'],heart:['heliotrope','lily of the valley'],base:['musk','ambrette','sandalwood'],season:'Winter',vibe:'white snow musk'},
+{id:'tfrose prick',name:'Rose Prick',house:'Tom Ford',fam:['floral','spicy','woody'],top:['rose','pink pepper','clove'],heart:['turkish rose','orris'],base:['amber','oud','patchouli'],season:'Year-round',vibe:'thorny prickly rose'},
+{id:'tfombresuede',name:'Ombré Suede',house:'Tom Ford',fam:['leather','floral','spicy'],top:['pink pepper','saffron'],heart:['leather','geranium','jasmine'],base:['amber','vetiver','sandalwood'],season:'Fall–Winter',vibe:'soft suede floral leather'},
+{id:'tfneroliintense',name:'Neroli Portofino Forte',house:'Tom Ford',fam:['citrus','floral','amber'],top:['neroli','bergamot','lemon'],heart:['orange blossom','jasmine'],base:['amber','sandalwood','musk'],season:'Summer',vibe:'intense neroli luxe'},
+{id:'tftuscanbp',name:'Tubéreuse Nue',house:'Tom Ford',fam:['floral','musky','fresh'],top:['bergamot','green notes'],heart:['tuberose'],base:['musk','sandalwood'],season:'Year-round',vibe:'bare naked tuberose'},
+
+/* ---- Dolce & Gabbana flankers ---- */
+{id:'dglightblueintense',name:'Light Blue Intense',house:'Dolce & Gabbana',fam:['citrus','floral','woody'],top:['lemon','apple','marigold'],heart:['jasmine','white rose'],base:['cedarwood','musk','amber'],season:'Summer',vibe:'intense version Light Blue'},
+{id:'dglightblueman',name:'Light Blue Pour Homme',house:'Dolce & Gabbana',fam:['citrus','aromatic','woody'],top:['grapefruit','bergamot','juniper'],heart:['rosemary','pepper'],base:['musk','oakmoss','incense'],season:'Spring–Summer',vibe:'fresh citrus masculine'},
+{id:'dgtheoneintense',name:'The One Intense',house:'Dolce & Gabbana',fam:['amber','spicy','gourmand'],top:['grapefruit','cardamom','ginger'],heart:['tobacco','orange blossom'],base:['amber','cedarwood','musk'],season:'Winter',vibe:'intense amber tobacco One'},
+{id:'dgtheoneparfum',name:'The One Parfum',house:'Dolce & Gabbana',fam:['amber','spicy','smoky'],top:['bergamot','cardamom'],heart:['leather','tobacco'],base:['amber','sandalwood','vetiver'],season:'Winter',vibe:'darkest The One'},
+
+/* ---- Hugo Boss flankers ---- */
+{id:'hugobossbottledeep',name:'Boss Bottled Infinite',house:'Hugo Boss',fam:['woody','aromatic','fresh'],top:['apple','bergamot'],heart:['cinnamon','geranium'],base:['sandalwood','mineral notes','musk'],season:'Year-round',vibe:'mineral clean Bottled'},
+{id:'hugobossjourney',name:'Boss Journey',house:'Hugo Boss',fam:['woody','citrus','aromatic'],top:['bergamot','pink pepper'],heart:['cardamom','vetiver'],base:['cedar','amberwood','musk'],season:'Year-round',vibe:'confident citrus wood journey'},
+{id:'hugobossselection',name:'Boss The Scent',house:'Hugo Boss',fam:['spicy','gourmand','woody'],top:['ginger','maninka fruit'],heart:['leather'],base:['cocoa','vetiver'],season:'Fall–Winter',vibe:'magnetic ginger leather'},
+
+/* ---- Givenchy flankers ---- */
+{id:'givenchygentlemaneau',name:'Gentleman Eau de Toilette',house:'Givenchy',fam:['aromatic','woody','floral'],top:['bergamot','iris','pear'],heart:['geranium','lavender'],base:['vetiver','cedar','amber'],season:'Year-round',vibe:'original classic Gentleman'},
+{id:'givenchygentlemanintense',name:'Gentleman Boisée',house:'Givenchy',fam:['woody','spicy','amber'],top:['bergamot','iris'],heart:['patchouli','leather'],base:['vetiver','cedar','amber'],season:'Fall–Winter',vibe:'woody spiced Gentleman'},
+{id:'givenchypi',name:'Pi',house:'Givenchy',fam:['gourmand','aromatic','amber'],top:['bergamot','anise','mandarin'],heart:['rosemary','geranium'],base:['amber','sandalwood','vanilla'],season:'Fall–Winter',vibe:'classic Pi gourmand'},
+{id:'givenchyirresis',name:'Irrésistible',house:'Givenchy',fam:['floral','musky','fresh'],top:['rose','bergamot'],heart:['rose','peony'],base:['musk','sandalwood','white cedar'],season:'Year-round',vibe:'fresh rose skin scent'},
+
+/* ---- PDM flankers ---- */
+{id:'pdmlaytonexclusif',name:'Layton Exclusif',house:'Parfums de Marly',fam:['fruity','gourmand','amber'],top:['apple','bergamot','cardamom'],heart:['violet','jasmine'],base:['vanilla','oud','patchouli'],season:'Winter',vibe:'darker richer Layton'},
+{id:'pdmpegasusexclusif',name:'Pegasus Exclusif',house:'Parfums de Marly',fam:['gourmand','amber','woody'],top:['bergamot','lavender'],heart:['bitter almond','heliotrope'],base:['vanilla','sandalwood','oud'],season:'Fall–Winter',vibe:'intense darker Pegasus'},
+{id:'pdmdelinaluxe',name:'Delina Exclusif',house:'Parfums de Marly',fam:['floral','fruity','amber'],top:['lychee','rhubarb'],heart:['turkish rose','peony'],base:['vanilla','cashmeran','oud'],season:'Year-round',vibe:'richer oud Delina'},
+{id:'pdmcouros',name:'Couros',house:'Parfums de Marly',fam:['leather','amber','spicy'],top:['cardamom','bergamot'],heart:['leather','jasmine'],base:['amber','sandalwood','musk'],season:'Fall–Winter',vibe:'rich leather amber'},
+{id:'pdmhalcyon',name:'Halcyon',house:'Parfums de Marly',fam:['amber','gourmand','woody'],top:['bergamot','cinnamon'],heart:['oud','vanilla'],base:['sandalwood','amber','musk'],season:'Fall–Winter',vibe:'halcyon warm oud amber'},
+
+/* ---- MFK flankers ---- */
+{id:'mfkbr540rouge',name:'Baccarat Rouge 540 Rouge',house:'Maison Francis Kurkdjian',fam:['amber','floral','spicy'],top:['saffron','jasmine','red fruits'],heart:['amberwood','ambergris'],base:['fir resin','cedar'],season:'Fall–Winter',vibe:'richer spiced BR540'},
+{id:'mfkaquamaris',name:'Aqua Media Cologne Forte',house:'Maison Francis Kurkdjian',fam:['citrus','fresh','woody'],top:['bergamot','pink pepper'],heart:['cedar','amberwood'],base:['musk','sandalwood'],season:'Year-round',vibe:'modern cologne forte'},
+{id:'mfkoudmood',name:'Oud Mood Extrait',house:'Maison Francis Kurkdjian',fam:['woody','amber','smoky'],top:['oud','saffron'],heart:['rose','incense'],base:['amber','sandalwood','musk'],season:'Winter',vibe:'intense oud extrait'}
 ];
 if(typeof module!=='undefined') module.exports={FRAGS};

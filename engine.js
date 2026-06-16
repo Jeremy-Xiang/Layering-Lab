@@ -94,7 +94,8 @@ cherry:'fruity','ginger lily':'floral',meringue:'gourmand','frozen rum accord':'
 petitgrain:'aromatic','apple blossom':'floral',myrtle:'aromatic',strawberry:'fruity',watermelon:'fruity',cypriol:'woody','green mango':'fruity',sycamore:'woody',citrus:'citrus',
 frankincense:'smoky','turkish coffee':'gourmand',cucumber:'fresh','white lilac':'floral',cassie:'floral',eucalyptus:'aromatic',angelica:'aromatic',oregano:'aromatic',
 wheat:'gourmand',hay:'aromatic',maple:'gourmand',butter:'gourmand',musks:'musky',cannabis:'smoky',resin:'amber','white flowers':'floral',whiskey:'boozy',
-agarwood:'woody','ice accord':'fresh','white amber':'amber',oak:'woody',grass:'aromatic',shiso:'aromatic',cistus:'amber',carrot:'aromatic','iris root':'floral',cocoa:'gourmand',wormwood:'aromatic'};
+agarwood:'woody','ice accord':'fresh','white amber':'amber',oak:'woody',grass:'aromatic',shiso:'aromatic',cistus:'amber',carrot:'aromatic','iris root':'floral',cocoa:'gourmand',wormwood:'aromatic',
+'grasse rose':'floral','caramel popcorn':'gourmand','water hyacinth':'floral','teak wood':'woody','cedar leaf':'woody',water:'fresh',tarragon:'aromatic',anemone:'floral','water lily':'floral',laurel:'aromatic',hazelnut:'gourmand','peach blossom':'floral',cassia:'spicy',tangerine:'citrus','olive blossom':'floral','black truffle':'smoky','black dahlia':'floral',marigold:'floral','white rose':'floral','mineral notes':'fresh','maninka fruit':'fruity','white cedar':'woody','red fruits':'fruity'};
 function noteFam(n){return NOTE_FAM[n]||'musky'}
 
 /* ---------- SCORING ---------- */
