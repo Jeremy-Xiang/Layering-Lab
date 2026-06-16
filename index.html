@@ -96,6 +96,14 @@ h1 em{font-style:normal;color:var(--amber)}
 .howto{margin-top:12px;font-size:14px;color:var(--ink-soft)}
 .meta-row{display:flex;gap:18px;flex-wrap:wrap;margin-top:14px;font-size:13px;color:var(--ink-soft)}
 .meta-row b{color:var(--ink);font-weight:700}
+.feedback{margin-top:16px;padding-top:14px;border-top:1px dashed var(--line)}
+.feedback-q{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:8px}
+.feedback-btns{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.fb-btn{display:inline-flex;align-items:center;gap:5px;font-size:13px;font-weight:700;padding:6px 14px;border-radius:99px;border:1.5px solid var(--line);background:var(--card);color:var(--ink-soft);cursor:pointer;transition:all .15s}
+.fb-btn:hover{border-color:var(--amber);color:var(--amber)}
+.fb-btn.voted-yes{background:#3E6B52;color:#fff;border-color:#3E6B52}
+.fb-btn.voted-no{background:#8C4A3A;color:#fff;border-color:#8C4A3A}
+.fb-count{font-size:12px;color:var(--ink-soft);margin-left:4px}
 .buy-row{margin-top:16px}
 .buy-row .buy-lbl{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:8px}
 .buy-btns{display:flex;flex-wrap:wrap;gap:8px}
@@ -251,7 +259,33 @@ function select(id){
   $('#baseName').textContent=current.name;
   $('#baseHouse').textContent=current.house+' · '+current.vibe;
   $('#baseNotes').innerHTML=[...current.top,...(current.heart||[]),...current.base].slice(0,7).map(n=>'<span class="chip">'+n+'</span>').join('');
-  const ranked=FRAGS.filter(f=>f.id!==id).map(f=>({f,r:scorePair(current,f)})).sort((a,b)=>b.r.score-a.r.score).slice(0,6);
+  // Score all candidates
+  const allRanked=FRAGS.filter(f=>f.id!==id)
+    .map(f=>({f,r:scorePair(current,f)}))
+    .sort((a,b)=>b.r.score-a.r.score);
+
+  // Diversity-aware selection: always take #1, then prefer results
+  // that introduce a new dominant family not already represented.
+  // This prevents 6 gourmand-amber results when searching a gourmand.
+  const ranked=[];
+  const seenFamilyPairs=new Set();
+  for(const item of allRanked){
+    if(ranked.length>=6) break;
+    // key = top 2 families of the candidate sorted
+    const key=[...item.f.fam].sort().slice(0,2).join('|');
+    // always add if under 3 results, otherwise only add if family pair is new or score is very high
+    if(ranked.length<3 || !seenFamilyPairs.has(key) || item.r.score>=88){
+      ranked.push(item);
+      seenFamilyPairs.add(key);
+    }
+  }
+  // if we didn't fill 6 (all were dupes), backfill with next highest
+  if(ranked.length<6){
+    for(const item of allRanked){
+      if(ranked.length>=6) break;
+      if(!ranked.includes(item)) ranked.push(item);
+    }
+  }
   results.innerHTML='';
   ranked.forEach(({f,r},idx)=>{
     const card=document.createElement('div');card.className='pair';
@@ -267,16 +301,99 @@ function select(id){
         '<div class="meta-row"><span>Best season: <b>'+f.season+'</b></span><span>Vibe: <b>'+f.vibe+'</b></span></div>'+
         buyButtons(f.name)+
         pyramidHTML(current,f)+
+        feedbackHTML(current.id,f.id)+
       '</div>';
     const btn=card.querySelector('.pair-top');
     btn.addEventListener('click',()=>{const open=card.classList.toggle('open');btn.setAttribute('aria-expanded',open)});
     if(idx===0){card.classList.add('open');btn.setAttribute('aria-expanded',true)}
     results.appendChild(card);
+    initFeedback(card,current.id,f.id);
   });
   stage.style.display='block';
   stage.scrollIntoView({behavior:'smooth',block:'start'});
 }
 $('#swapBtn').addEventListener('click',()=>{q.value='';q.focus();window.scrollTo({top:0,behavior:'smooth'})});
+
+/* ============================================================
+   COMMUNITY FEEDBACK SYSTEM (Supabase)
+   Replace SUPABASE_URL and SUPABASE_ANON_KEY after setup.
+   See SUPABASE-SETUP.md for exact instructions.
+   ============================================================ */
+const SUPABASE_URL='YOUR_SUPABASE_URL';
+const SUPABASE_KEY='YOUR_SUPABASE_ANON_KEY';
+const SB_ENABLED=SUPABASE_URL!=='YOUR_SUPABASE_URL';
+
+// localStorage to prevent repeat votes
+function getVoted(pairKey){return localStorage.getItem('vote_'+pairKey)}
+function setVoted(pairKey,v){localStorage.setItem('vote_'+pairKey,v)}
+
+async function fetchRatings(pairKey){
+  if(!SB_ENABLED) return null;
+  try{
+    const r=await fetch(SUPABASE_URL+'/rest/v1/ratings?pair_key=eq.'+encodeURIComponent(pairKey)+'&select=yes_count,no_count',{
+      headers:{'apikey':SUPABASE_KEY,'Authorization':'Bearer '+SUPABASE_KEY}
+    });
+    const d=await r.json();
+    return d[0]||null;
+  }catch(e){return null}
+}
+
+async function vote(pairKey,isYes){
+  if(!SB_ENABLED) return;
+  try{
+    // upsert: increment yes or no count using RPC
+    await fetch(SUPABASE_URL+'/rest/v1/rpc/cast_vote',{
+      method:'POST',
+      headers:{'apikey':SUPABASE_KEY,'Authorization':'Bearer '+SUPABASE_KEY,'Content-Type':'application/json'},
+      body:JSON.stringify({p_pair_key:pairKey,p_is_yes:isYes})
+    });
+  }catch(e){console.log('vote error',e)}
+}
+
+function feedbackHTML(idA,idB){
+  const key=[idA,idB].sort().join('_');
+  return `<div class="feedback" data-pair="${key}">
+    <div class="feedback-q">Have you tried this combo?</div>
+    <div class="feedback-btns">
+      <button class="fb-btn fb-yes" data-key="${key}">👍 Works great <span class="fb-count"></span></button>
+      <button class="fb-btn fb-no" data-key="${key}">👎 Didn't work <span class="fb-count"></span></button>
+    </div>
+  </div>`;
+}
+
+async function initFeedback(card,idA,idB){
+  const key=[idA,idB].sort().join('_');
+  const voted=getVoted(key);
+  const data=await fetchRatings(key);
+  const yesBtn=card.querySelector('.fb-yes');
+  const noBtn=card.querySelector('.fb-no');
+  if(!yesBtn||!noBtn) return;
+  // show counts if we have data
+  if(data){
+    const total=data.yes_count+data.no_count;
+    if(total>0){
+      yesBtn.querySelector('.fb-count').textContent=data.yes_count>0?'('+data.yes_count+')':'';
+      noBtn.querySelector('.fb-count').textContent=data.no_count>0?'('+data.no_count+')':'';
+    }
+  }
+  // restore voted state
+  if(voted==='yes') yesBtn.classList.add('voted-yes');
+  if(voted==='no') noBtn.classList.add('voted-no');
+  // attach vote handlers
+  [yesBtn,noBtn].forEach(btn=>{
+    btn.addEventListener('click',async()=>{
+      if(getVoted(key)) return; // already voted
+      const isYes=btn.classList.contains('fb-yes');
+      setVoted(key,isYes?'yes':'no');
+      btn.classList.add(isYes?'voted-yes':'voted-no');
+      await vote(key,isYes);
+      // optimistically update count
+      const countEl=btn.querySelector('.fb-count');
+      const current=parseInt(countEl.textContent.replace(/[()]/g,''))||0;
+      countEl.textContent='('+(current+1)+')';
+    });
+  });
+}
 
 /* ---------- mode switching ---------- */
 const findMode=$('#findMode'),compareMode=$('#compareMode');
