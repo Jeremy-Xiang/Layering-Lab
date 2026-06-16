@@ -323,6 +323,115 @@ const FRAGS=[
 {id:'lancomemiracle',name:'Miracle',house:'Lancôme',fam:['floral','fresh','spicy'],top:['lychee','ginger'],heart:['jasmine','magnolia'],base:['musk','amber'],season:'Spring–Summer',vibe:'fresh lychee-ginger floral'},
 {id:'hermescin',name:'Un Jardin sur le Nil',house:'Hermès',fam:['fresh','citrus','floral'],top:['grapefruit','green mango'],heart:['lotus','peony'],base:['sycamore','incense'],season:'Spring–Summer',vibe:'fresh green Nile garden'},
 {id:'hermesmediterranee',name:'Un Jardin en Méditerranée',house:'Hermès',fam:['fresh','aromatic','woody'],top:['fig','citrus'],heart:['cypress','cedar'],base:['musk','cedar'],season:'Summer',vibe:'Mediterranean fig garden'},
-{id:'hermesrouge',name:'Rouge Hermès',house:'Hermès',fam:['floral','citrus','musky'],top:['bergamot','orange'],heart:['rose','peony'],base:['cedar','amber','sandalwood'],season:'Year-round',vibe:'chic rose-citrus Hermès'}
+{id:'hermesrouge',name:'Rouge Hermès',house:'Hermès',fam:['floral','citrus','musky'],top:['bergamot','orange'],heart:['rose','peony'],base:['cedar','amber','sandalwood'],season:'Year-round',vibe:'chic rose-citrus Hermès'},
+
+/* ---- Kilian ---- */
+{id:'kilianlovedontbe',name:'Love Don\'t Be Shy',house:'Kilian',fam:['gourmand','floral','musky'],top:['neroli','orange blossom'],heart:['rose','jasmine'],base:['marshmallow','musk','vanilla'],season:'Year-round',vibe:'marshmallow skin scent'},
+{id:'kilianbacktoblack',name:'Back to Black',house:'Kilian',fam:['gourmand','smoky','amber'],top:['honey','tobacco'],heart:['rum','coffee'],base:['vanilla','musk','amber'],season:'Fall–Winter',vibe:'honey tobacco aphrodisiac'},
+{id:'kilianincense',name:'Sacred Wood',house:'Kilian',fam:['woody','smoky','amber'],top:['frankincense','cedar'],heart:['sandalwood','vetiver'],base:['amber','musk','incense'],season:'Fall–Winter',vibe:'sacred smoky woods'},
+{id:'kilianvodka',name:'Vodka on the Rocks',house:'Kilian',fam:['fresh','citrus','musky'],top:['bergamot','lemon','mint'],heart:['iris','violet'],base:['musk','vetiver','amber'],season:'Spring–Summer',vibe:'icy citrus mineralic'},
+{id:'kilianprecious',name:'Precious Lord',house:'Kilian',fam:['woody','amber','smoky'],top:['saffron','cinnamon'],heart:['oud','rose'],base:['sandalwood','amber','vanilla'],season:'Winter',vibe:'precious spiced oud'},
+{id:'kilianintoxicated',name:'Intoxicated',house:'Kilian',fam:['gourmand','spicy','aromatic'],top:['cardamom','coffee'],heart:['turkish coffee','cinnamon'],base:['musk','vanilla','sandalwood'],season:'Fall–Winter',vibe:'turkish coffee cardamom'},
+{id:'kilianoldflame',name:'Old Flame',house:'Kilian',fam:['floral','woody','musky'],top:['aldehydes','neroli'],heart:['rose','jasmine','iris'],base:['sandalwood','musk','amber'],season:'Year-round',vibe:'classic aldehydic floral'},
+{id:'kilianprincess',name:'Princess',house:'Kilian',fam:['fruity','floral','gourmand'],top:['peach','apricot'],heart:['rose','jasmine'],base:['praline','vanilla','musk'],season:'Year-round',vibe:'peach praline femme'},
+{id:'kilianindiscrete',name:'Indiscrete',house:'Kilian',fam:['floral','powdery','musky'],top:['violet','iris'],heart:['rose','lily'],base:['musk','sandalwood','vanilla'],season:'Year-round',vibe:'powdery violet skin'},
+{id:'kilianmoonlight',name:'Moonlight in Heaven',house:'Kilian',fam:['fruity','floral','fresh'],top:['grapefruit','coconut','pineapple'],heart:['jasmine','tiare'],base:['musk','sandalwood'],season:'Summer',vibe:'tropical coconut floral'},
+
+/* ---- Frederic Malle ---- */
+{id:'mallportrait',name:'Portrait of a Lady',house:'Frederic Malle',fam:['floral','woody','spicy'],top:['turkish rose','blackcurrant'],heart:['patchouli','raspberry','sandalwood'],base:['musk','amber','incense'],season:'Fall–Winter',vibe:'dark rose masterpiece'},
+{id:'mallesalon',name:'Musc Ravageur',house:'Frederic Malle',fam:['amber','musky','spicy'],top:['bergamot','lavender'],heart:['cinnamon','clove','vanilla'],base:['musk','sandalwood','amber'],season:'Fall–Winter',vibe:'animalic musk bomb'},
+{id:'mallfleur',name:'En Passant',house:'Frederic Malle',fam:['floral','fresh','woody'],top:['cucumber','lily of the valley'],heart:['white lilac'],base:['white musk','cedar'],season:'Spring–Summer',vibe:'wet lilac morning'},
+{id:'malleune',name:'Une Fleur de Cassie',house:'Frederic Malle',fam:['floral','spicy','musky'],top:['mimosa','cassie'],heart:['violet','jasmine'],base:['musk','amber','sandalwood'],season:'Year-round',vibe:'animalic mimosa'},
+{id:'mallecarnal',name:'Carnal Flower',house:'Frederic Malle',fam:['floral','fresh','woody'],top:['eucalyptus','melon'],heart:['tuberose','jasmine'],base:['musk','coconut','sandalwood'],season:'Year-round',vibe:'narcotic tuberose'},
+{id:'mallegeranium',name:'Geranium pour Monsieur',house:'Frederic Malle',fam:['aromatic','fresh','woody'],top:['geranium','mint'],heart:['clove','nutmeg'],base:['cedar','musk','amber'],season:'Spring–Fall',vibe:'peppery geranium modern'},
+{id:'mallelune',name:'Lune de Hermès',house:'Frederic Malle',fam:['woody','aromatic','citrus'],top:['bergamot','neroli'],heart:['violet','iris'],base:['vetiver','sandalwood','musk'],season:'Year-round',vibe:'elegant iris-wood'},
+{id:'mallefrench',name:'French Lover',house:'Frederic Malle',fam:['woody','aromatic','spicy'],top:['galbanum','nutmeg','black pepper'],heart:['incense','angelica'],base:['vetiver','olibanum','musk'],season:'Year-round',vibe:'dry green vetiver'},
+{id:'mallesoft',name:'Soft Cedar',house:'Frederic Malle',fam:['woody','musky','fresh'],top:['cedar','lemon'],heart:['iris','geranium'],base:['musk','sandalwood'],season:'Year-round',vibe:'clean cedar minimalist'},
+
+/* ---- Serge Lutens ---- */
+{id:'sergebois',name:'Bois de Violette',house:'Serge Lutens',fam:['woody','floral','spicy'],top:['violet','cedar'],heart:['sandalwood','rose'],base:['musk','amber'],season:'Year-round',vibe:'woody violet signature'},
+{id:'sergeambre',name:'Ambre Sultan',house:'Serge Lutens',fam:['amber','spicy','aromatic'],top:['oregano','coriander','bay leaf'],heart:['benzoin','labdanum'],base:['amber','musk','sandalwood'],season:'Fall–Winter',vibe:'herbal resinous amber'},
+{id:'sergefille',name:'Feminite du Bois',house:'Serge Lutens',fam:['woody','floral','spicy'],top:['cedar','cardamom','peach'],heart:['rose','violet','clove'],base:['sandalwood','musk','amber'],season:'Fall–Winter',vibe:'spiced cedar feminine'},
+{id:'sergesakura',name:'Fleurs d\'Oranger',house:'Serge Lutens',fam:['floral','spicy','musky'],top:['orange blossom','jasmine'],heart:['cumin','rose'],base:['musk','amber','sandalwood'],season:'Summer',vibe:'animalic orange blossom'},
+{id:'sergejeux',name:'Jeux de Peau',house:'Serge Lutens',fam:['gourmand','woody','aromatic'],top:['wheat','hay'],heart:['maple','butter'],base:['sandalwood','musk','vanilla'],season:'Year-round',vibe:'warm bread gourmand'},
+{id:'sergeoud',name:'Arabie',house:'Serge Lutens',fam:['spicy','amber','fruity'],top:['cumin','dates'],heart:['rose','jasmine','cinnamon'],base:['amber','sandalwood','musk'],season:'Fall–Winter',vibe:'middle eastern spiced dates'},
+{id:'sergegris',name:'Gris Clair',house:'Serge Lutens',fam:['aromatic','musky','woody'],top:['lavender','iris'],heart:['musks','tonka'],base:['sandalwood','cedar'],season:'Year-round',vibe:'clean lavender musk'},
+{id:'sergenuit',name:'La Nuit de L\'Homme Serge',house:'Serge Lutens',fam:['floral','woody','aromatic'],top:['iris','bergamot'],heart:['rose','jasmine'],base:['musk','cedar','amber'],season:'Year-round',vibe:'powdery iris floral'},
+{id:'sergeun',name:'Un Bois Sepia',house:'Serge Lutens',fam:['woody','gourmand','spicy'],top:['cinnamon','ginger'],heart:['sandalwood','cedar'],base:['vanilla','amber','musk'],season:'Fall–Winter',vibe:'spiced warm woods'},
+{id:'sergerose',name:'Sa Majeste la Rose',house:'Serge Lutens',fam:['floral','spicy','woody'],top:['rose','geranium'],heart:['rose','cumin'],base:['musk','cedar','sandalwood'],season:'Spring–Fall',vibe:'majestic spiced rose'},
+
+/* ---- Nasomatto ---- */
+{id:'nasoblack',name:'Black Afgano',house:'Nasomatto',fam:['smoky','woody','amber'],top:['cannabis','coffee'],heart:['oud','incense'],base:['resin','amber','musk'],season:'Fall–Winter',vibe:'hash resin dark cult'},
+{id:'nasochina',name:'China White',house:'Nasomatto',fam:['floral','musky','powdery'],top:['white flowers'],heart:['jasmine','lily'],base:['musk','sandalwood','amber'],season:'Year-round',vibe:'opium white floral'},
+{id:'nasopardon',name:'Pardon',house:'Nasomatto',fam:['woody','spicy','amber'],top:['black pepper','saffron'],heart:['oud','leather'],base:['amber','musk','sandalwood'],season:'Fall–Winter',vibe:'powerful dark leather'},
+{id:'nasobaraonda',name:'Baraonda',house:'Nasomatto',fam:['boozy','woody','spicy'],top:['whiskey','pepper'],heart:['tobacco','leather'],base:['amber','musk','sandalwood'],season:'Fall–Winter',vibe:'whiskey leather chaos'},
+{id:'nasoduro',name:'Duro',house:'Nasomatto',fam:['aromatic','woody','spicy'],top:['sage','pepper'],heart:['leather','vetiver'],base:['amber','musk','woods'],season:'Year-round',vibe:'masculine sage leather'},
+{id:'nasosolaris',name:'Solaris',house:'Nasomatto',fam:['citrus','floral','fresh'],top:['bergamot','lemon'],heart:['jasmine','ylang'],base:['musk','amber','sandalwood'],season:'Spring–Summer',vibe:'sunny citrus floral'},
+{id:'nasojudaspriest',name:'Fantomas',house:'Nasomatto',fam:['woody','amber','musky'],top:['pepper','galbanum'],heart:['vetiver','patchouli'],base:['musk','amber','resin'],season:'Year-round',vibe:'dark animalic woods'},
+{id:'nasodivine',name:'Divine Attraction',house:'Nasomatto',fam:['floral','amber','musky'],top:['rose','saffron'],heart:['jasmine','oud'],base:['amber','musk','vanilla'],season:'Fall–Winter',vibe:'divine rose oud'},
+
+/* ---- Creed expanded ---- */
+{id:'creedviking',name:'Viking',house:'Creed',fam:['fresh','spicy','woody'],top:['bergamot','grapefruit','lemon'],heart:['pepper','geranium','lavender'],base:['sandalwood','cedar','amber'],season:'Year-round',vibe:'bold citrus-spice freshness'},
+{id:'creedvikingcologne',name:'Viking Cologne',house:'Creed',fam:['citrus','aromatic','fresh'],top:['bergamot','lemon','neroli'],heart:['grapefruit','lavender'],base:['musk','cedar','ambergris'],season:'Spring–Summer',vibe:'lighter fresher Viking'},
+{id:'creedvikingextrait',name:'Viking Extrait de Parfum',house:'Creed',fam:['spicy','woody','amber'],top:['bergamot','grapefruit'],heart:['pepper','geranium'],base:['sandalwood','amber','labdanum'],season:'Fall–Winter',vibe:'darker richer Viking'},
+{id:'creedloveinblack',name:'Love in Black',house:'Creed',fam:['floral','woody','amber'],top:['bergamot','violet'],heart:['rose','iris','carnation'],base:['sandalwood','vetiver','amber'],season:'Fall–Winter',vibe:'dark dramatic floral'},
+{id:'creedqueenofsilk',name:'Queen of Silk',house:'Creed',fam:['floral','fruity','musky'],top:['bergamot','pink pepper','mandarin'],heart:['jasmine','rose','magnolia'],base:['musk','sandalwood','amber'],season:'Year-round',vibe:'silky soft floral femme'},
+{id:'creedwhiteamber',name:'White Amber',house:'Creed',fam:['amber','musky','floral'],top:['bergamot','lemon'],heart:['jasmine','rose'],base:['amber','musk','sandalwood'],season:'Year-round',vibe:'clean luminous amber'},
+{id:'creedtabarome',name:'Tabarome Millesime',house:'Creed',fam:['aromatic','spicy','woody'],top:['bergamot','grapefruit'],heart:['tobacco','geranium'],base:['sandalwood','amber','musk'],season:'Fall–Winter',vibe:'classic tobacco aromatic'},
+{id:'creedfleurissimo',name:'Fleurissimo',house:'Creed',fam:['floral','powdery','citrus'],top:['bergamot','violet'],heart:['tuberose','rose','iris'],base:['musk','sandalwood','amber'],season:'Spring–Summer',vibe:'bridal violet tuberose'},
+{id:'creedaventusforher',name:'Aventus for Her',house:'Creed',fam:['fruity','floral','woody'],top:['bergamot','pineapple','green apple'],heart:['rose','jasmine','lychee'],base:['musk','sandalwood','amber'],season:'Spring–Fall',vibe:'feminine fruity Aventus'},
+{id:'creednerolisamarkan',name:'Neroli Samarkan',house:'Creed',fam:['citrus','floral','fresh'],top:['neroli','orange blossom','bergamot'],heart:['jasmine','rose'],base:['musk','sandalwood','amber'],season:'Spring–Summer',vibe:'luminous neroli blossom'},
+{id:'creedoriginalvetiver',name:'Original Vetiver',house:'Creed',fam:['woody','citrus','aromatic'],top:['grapefruit','bergamot','lemon'],heart:['geranium','pepper'],base:['vetiver','musk','cedar'],season:'Spring–Fall',vibe:'clean crisp vetiver'},
+{id:'creedgreenvalley',name:'Green Valley',house:'Creed',fam:['aromatic','fresh','woody'],top:['bergamot','lavender','mint'],heart:['geranium','rosemary'],base:['vetiver','cedar','musk'],season:'Spring–Summer',vibe:'green herbal fresh'},
+{id:'creedcachemirebleu',name:'Cachemire Bleu',house:'Creed',fam:['amber','floral','musky'],top:['bergamot','aldehydes'],heart:['rose','jasmine','iris'],base:['cashmeran','musk','sandalwood'],season:'Fall–Winter',vibe:'cashmere soft warmth'},
+{id:'creedbaiedesgenievres',name:'Baie de Genièvres',house:'Creed',fam:['fresh','aromatic','woody'],top:['juniper','bergamot','lemon'],heart:['geranium','lavender'],base:['cedar','musk','amber'],season:'Spring–Summer',vibe:'gin-juniper botanical'},
+{id:'creedprincessegrace',name:'Princesse Grace de Monaco',house:'Creed',fam:['floral','citrus','woody'],top:['bergamot','neroli','rose'],heart:['rose','jasmine','ylang'],base:['sandalwood','musk','amber'],season:'Spring–Summer',vibe:'classic rose elegance'},
+{id:'creedspringflorentina',name:'Spring Florentina',house:'Creed',fam:['floral','fruity','fresh'],top:['orange blossom','bergamot','peach'],heart:['rose','jasmine'],base:['musk','sandalwood'],season:'Spring–Summer',vibe:'peach blossom Florentine'},
+
+/* ---- Kilian expanded ---- */
+{id:'kiliangoodnightgoodluck',name:'Good Night And Good Luck',house:'Kilian',fam:['aromatic','woody','spicy'],top:['bergamot','grapefruit'],heart:['tobacco','clary sage'],base:['sandalwood','musk','amber'],season:'Fall–Winter',vibe:'tobacco gentleman accord'},
+{id:'kilianflowerofdeath',name:'Flower Of Immortality',house:'Kilian',fam:['floral','woody','musky'],top:['orange blossom','bergamot'],heart:['rose','jasmine'],base:['white musk','sandalwood','amber'],season:'Year-round',vibe:'delicate immortal floral'},
+{id:'kilianpureoud',name:'Pure Oud',house:'Kilian',fam:['woody','smoky','amber'],top:['oud','saffron'],heart:['rose','sandalwood'],base:['amber','musk','agarwood'],season:'Winter',vibe:'pure raw agarwood'},
+{id:'kiliansmokinggun',name:'Smoking Hot',house:'Kilian',fam:['smoky','spicy','amber'],top:['pink pepper','cardamom'],heart:['tobacco','leather'],base:['amber','oud','sandalwood'],season:'Fall–Winter',vibe:'smoky leather heat'},
+{id:'kilianrosesandice',name:'Roses on Ice',house:'Kilian',fam:['floral','fresh','citrus'],top:['bergamot','lemon','ice accord'],heart:['rose','jasmine'],base:['musk','white amber'],season:'Summer',vibe:'iced rose cocktail'},
+{id:'kilianiwantcandies',name:'I Want Candy',house:'Kilian',fam:['gourmand','fruity','floral'],top:['raspberry','pink pepper'],heart:['rose','peony'],base:['marshmallow','musk','vanilla'],season:'Year-round',vibe:'sweet candy pink'},
+{id:'kilianplayitcool',name:'Playing With The Devil',house:'Kilian',fam:['floral','fruity','musky'],top:['peach','bergamot'],heart:['rose','jasmine','iris'],base:['musk','sandalwood','vanilla'],season:'Year-round',vibe:'seductive soft floral'},
+{id:'kilianincense2',name:'In The City of Sin',house:'Kilian',fam:['spicy','smoky','amber'],top:['rum','cardamom'],heart:['incense','oud'],base:['amber','musk','sandalwood'],season:'Fall–Winter',vibe:'sinful smoky rum'},
+{id:'kilianwoodstock',name:'Woodstock',house:'Kilian',fam:['woody','fresh','aromatic'],top:['bergamot','pine'],heart:['cedar','vetiver'],base:['musk','amber','sandalwood'],season:'Spring–Fall',vibe:'fresh forest woods'},
+{id:'kilianprincenotprince',name:'I Don\'t Need A Prince By My Side',house:'Kilian',fam:['gourmand','fruity','spicy'],top:['lemon','pink pepper'],heart:['caramel','rose'],base:['vanilla','musk','sandalwood'],season:'Year-round',vibe:'bold playful gourmand'},
+{id:'kilianangelsshareontherocks',name:'Angels\' Share On The Rocks',house:'Kilian',fam:['boozy','spicy','gourmand'],top:['grapefruit','lemon','cognac'],heart:['cinnamon','caramel'],base:['tonka','sandalwood','oak'],season:'Year-round',vibe:'iced cognac twist'},
+
+/* ---- Frederic Malle expanded ---- */
+{id:'mallerose',name:'Une Rose',house:'Frederic Malle',fam:['floral','spicy','woody'],top:['turkish rose','cumin'],heart:['rose','patchouli'],base:['musk','amber','sandalwood'],season:'Year-round',vibe:'powerful modern rose'},
+{id:'mallelipstick',name:'Lipstick Rose',house:'Frederic Malle',fam:['floral','powdery','fruity'],top:['violet','bergamot'],heart:['rose','grapefruit'],base:['musk','vanilla','sandalwood'],season:'Year-round',vibe:'vintage lipstick rose'},
+{id:'malleodeurmagnolia',name:'Eau de Magnolia',house:'Frederic Malle',fam:['floral','fresh','woody'],top:['magnolia','bergamot'],heart:['magnolia','jasmine'],base:['vetiver','patchouli','musk'],season:'Spring–Summer',vibe:'sunny magnolia haze'},
+{id:'malleirispoudre',name:'Iris Poudre',house:'Frederic Malle',fam:['powdery','floral','woody'],top:['iris','bergamot'],heart:['rose','violet'],base:['musk','sandalwood','vetiver'],season:'Year-round',vibe:'powdery iris classic'},
+{id:'mallecolognindelebile',name:'Cologne Indelebile',house:'Frederic Malle',fam:['floral','citrus','musky'],top:['neroli','bergamot','lemon'],heart:['orange blossom','jasmine'],base:['musk','cedarwood'],season:'Year-round',vibe:'lasting neroli cologne'},
+{id:'mallebigarade',name:'Bigarade Concentree',house:'Frederic Malle',fam:['citrus','aromatic','woody'],top:['bitter orange','grapefruit','cumin'],heart:['cedar','grass'],base:['vetiver','hay','musk'],season:'Spring–Summer',vibe:'bitter citrus vetiver'},
+{id:'malleleau',name:'L\'Eau d\'Hiver',house:'Frederic Malle',fam:['floral','powdery','fresh'],top:['heliotrope','iris'],heart:['shiso'],base:['white musk','sandalwood'],season:'Winter',vibe:'clean winter musk powder'},
+{id:'malleinthebubble',name:'Dans Tes Bras',house:'Frederic Malle',fam:['musky','woody','amber'],top:['violet','iris'],heart:['musk','moss'],base:['amber','sandalwood'],season:'Year-round',vibe:'skin musk intimacy'},
+{id:'malletheorie',name:'Theorie',house:'Frederic Malle',fam:['aromatic','woody','spicy'],top:['bergamot','pepper'],heart:['cedar','iris'],base:['vetiver','amber','musk'],season:'Year-round',vibe:'dry sophisticated aromatic'},
+
+/* ---- Serge Lutens expanded ---- */
+{id:'sergefilleberlin',name:'La Fille de Berlin',house:'Serge Lutens',fam:['floral','spicy','fruity'],top:['rose','pink pepper'],heart:['rose','raspberry'],base:['musk','patchouli','amber'],season:'Year-round',vibe:'thorny Berlin rose'},
+{id:'sergecherguei',name:'Chergui',house:'Serge Lutens',fam:['amber','spicy','gourmand'],top:['tobacco','hay','spices'],heart:['iris','musk','honey'],base:['amber','sandalwood','incense'],season:'Fall–Winter',vibe:'warm desert wind tobacco'},
+{id:'sergefilleaiguilles',name:'Fille en Aiguilles',house:'Serge Lutens',fam:['woody','spicy','aromatic'],top:['pine','bergamot'],heart:['incense','cistus'],base:['cedar','amber','musk'],season:'Fall–Winter',vibe:'pine resin forest'},
+{id:'sergecinqoclock',name:'Five O\'Clock Au Gingembre',house:'Serge Lutens',fam:['spicy','aromatic','gourmand'],top:['ginger','bergamot'],heart:['tea','cardamom'],base:['sandalwood','musk','amber'],season:'Year-round',vibe:'spiced afternoon tea'},
+{id:'sergeeldattournuit',name:'El Attarine',house:'Serge Lutens',fam:['spicy','amber','floral'],top:['cumin','coriander'],heart:['rose','orange blossom','cumin'],base:['amber','musk','sandalwood'],season:'Fall–Winter',vibe:'Moroccan spice souk'},
+{id:'sergenoircelluphane',name:'Nuit de Cellophane',house:'Serge Lutens',fam:['floral','musky','fresh'],top:['peach','bergamot'],heart:['jasmine','rose','lily'],base:['musk','sandalwood','amber'],season:'Spring–Summer',vibe:'transparent clean floral'},
+{id:'sergeirisilver',name:'Iris Silver Mist',house:'Serge Lutens',fam:['powdery','floral','earthy'],top:['iris','carrot'],heart:['iris root','rose'],base:['musk','sandalwood','vetiver'],season:'Year-round',vibe:'cold metallic iris earth'},
+{id:'sergeunpotmauve',name:'Un Lys',house:'Serge Lutens',fam:['floral','powdery','fresh'],top:['lily','bergamot'],heart:['lily','jasmine'],base:['musk','sandalwood'],season:'Spring–Summer',vibe:'white lily innocence'},
+{id:'sergeorpehline',name:'L\'Orpheline',house:'Serge Lutens',fam:['aromatic','spicy','woody'],top:['incense','anise'],heart:['cistus','clove'],base:['amber','musk','vetiver'],season:'Fall–Winter',vibe:'cold incense orphan'},
+{id:'sergeudaturnoir',name:'Datura Noir',house:'Serge Lutens',fam:['gourmand','floral','amber'],top:['almond','coconut','apricot'],heart:['tuberose','heliotrope','osmanthus'],base:['vanilla','tonka','musk'],season:'Fall–Winter',vibe:'creamy narcotic tuberose'},
+{id:'sergeecrindefumee',name:'Ecrin de Fumée',house:'Serge Lutens',fam:['smoky','amber','spicy'],top:['tobacco','bergamot'],heart:['incense','leather'],base:['amber','musk','sandalwood'],season:'Fall–Winter',vibe:'smoky tobacco ecrin'},
+{id:'sergeunboissantal',name:'Santal Majuscule',house:'Serge Lutens',fam:['woody','floral','amber'],top:['rose','bergamot'],heart:['sandalwood','cocoa'],base:['amber','musk','sandalwood'],season:'Year-round',vibe:'creamy rose sandalwood'},
+
+/* ---- Nasomatto expanded ---- */
+{id:'nasoalphaMask',name:'Narcotic Venus',house:'Nasomatto',fam:['floral','musky','amber'],top:['white flowers','tuberose'],heart:['jasmine','musk'],base:['amber','sandalwood','vanilla'],season:'Year-round',vibe:'narcotic white floral musk'},
+{id:'nasoprimateria',name:'Primateria',house:'Nasomatto',fam:['woody','spicy','amber'],top:['pepper','saffron'],heart:['oud','leather'],base:['amber','musk','sandalwood'],season:'Fall–Winter',vibe:'primordial spiced oud'},
+{id:'nasoshaman',name:'Absinth',house:'Nasomatto',fam:['aromatic','woody','spicy'],top:['wormwood','anise'],heart:['vetiver','incense'],base:['musk','amber','woods'],season:'Fall–Winter',vibe:'absinthe green bitter'},
+{id:'nasogrampa',name:'Nuda',house:'Nasomatto',fam:['musky','floral','fresh'],top:['aldehydes','bergamot'],heart:['rose','lily','iris'],base:['white musk','sandalwood'],season:'Year-round',vibe:'bare clean skin musk'},
+{id:'nasotamahine',name:'Tahitian',house:'Nasomatto',fam:['floral','fruity','musky'],top:['coconut','tiare'],heart:['jasmine','ylang'],base:['musk','sandalwood','vanilla'],season:'Summer',vibe:'tropical island floral'},
+{id:'nasohura',name:'Gatto',house:'Nasomatto',fam:['musky','woody','amber'],top:['aldehydes','bergamot'],heart:['iris','rose'],base:['musk','amber','sandalwood'],season:'Year-round',vibe:'soft powdery animal musk'}
 ];
 if(typeof module!=='undefined') module.exports={FRAGS};

@@ -4,7 +4,7 @@
 
 /* ---------- AFFILIATE CONFIG: edit these 3 tags after signup ---------- */
 const AFFILIATE = {
-  amazon:   { tag:'layeringlab-20',        label:'Amazon' },      // Amazon Associates
+  amazon:   { tag:'YOURTAG-20',        label:'Amazon' },      // Amazon Associates
   jomashop: { aff:'YOURJOMOID',        label:'Jomashop' },    // via Rakuten/Sovrn deep link
   fragbuy:  { aff:'YOURFRAGNETID',     label:'FragranceX' }   // FragranceX/FragranceNet affiliate
 };
@@ -91,7 +91,10 @@ truffle:'woody','black tea':'aromatic',plum:'fruity',dewberry:'fruity','red berr
 aldehydes:'powdery','coconut milk':'fruity',chestnut:'gourmand','sea salt':'fresh',driftwood:'woody',
 pomegranate:'fruity',yuzu:'citrus',mahogany:'woody',blackberry:'fruity',cassis:'fruity','bitter orange':'citrus',blueberry:'fruity',civet:'musky',
 cherry:'fruity','ginger lily':'floral',meringue:'gourmand','frozen rum accord':'boozy','watery notes':'fresh','aquatic notes':'fresh','atlas cedar':'woody','haitian vetiver':'woody',elemi:'woody','black currant':'fruity','coal accord':'smoky','metal accord':'smoky','chili pepper':'spicy','jasmine bud':'floral','roman chamomile':'aromatic',citron:'citrus',cedarwood:'woody',olibanum:'smoky',gardenia:'floral',
-petitgrain:'aromatic','apple blossom':'floral',myrtle:'aromatic',strawberry:'fruity',watermelon:'fruity',cypriol:'woody','green mango':'fruity',sycamore:'woody',citrus:'citrus'};
+petitgrain:'aromatic','apple blossom':'floral',myrtle:'aromatic',strawberry:'fruity',watermelon:'fruity',cypriol:'woody','green mango':'fruity',sycamore:'woody',citrus:'citrus',
+frankincense:'smoky','turkish coffee':'gourmand',cucumber:'fresh','white lilac':'floral',cassie:'floral',eucalyptus:'aromatic',angelica:'aromatic',oregano:'aromatic',
+wheat:'gourmand',hay:'aromatic',maple:'gourmand',butter:'gourmand',musks:'musky',cannabis:'smoky',resin:'amber','white flowers':'floral',whiskey:'boozy',
+agarwood:'woody','ice accord':'fresh','white amber':'amber',oak:'woody',grass:'aromatic',shiso:'aromatic',cistus:'amber',carrot:'aromatic','iris root':'floral',cocoa:'gourmand',wormwood:'aromatic'};
 function noteFam(n){return NOTE_FAM[n]||'musky'}
 
 /* ---------- SCORING ---------- */
